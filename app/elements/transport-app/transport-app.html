@@ -409,6 +409,13 @@
       document.querySelector('zonechange-card').ready();
       
     }
+
+    if(currpage=="feereceipt"){
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("accountadmin","Accounts Admin");
+      document.querySelector('feereceipt-card').FnClear();
+      
+    }
    }
    if(name=="Transport Admin")  {
     document.querySelector('mapstudenttopoint-service').FnClear();
@@ -549,6 +556,13 @@
       document.querySelector('transport-app').setPage("transportadmin","Transport Admin");
       document.querySelector('staffroute-card').ready();
     }
+
+    if(currpage=="feereceipt"){
+      alert('hi1');
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("transportadmin","Transport Admin");
+      alert('hi');
+    }
    }
     if(name=="Admin Manager")  {
     if(currpage=="approvediscount"){
@@ -591,6 +605,13 @@
 
     }
 
+    if(currpage=="cancellation"){
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("adminmanager","Admin Manager");
+      document.querySelector('cancellation-card').FnClear();
+      document.querySelector('cancellation-card').ready();
+      
+    }
   }
   if(name=="Finance Manager")  {
     if(currpage=="generatereport"){
@@ -605,6 +626,13 @@
       document.querySelector('transport-app').setPage("financemanager","Finance Manager");
       //document.querySelector('genestureport-card').FnClear();
       document.querySelector('chequedetail-card').ready();
+      
+    }
+    if(currpage=="summary"){
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("financemanager","Finance Manager");
+      //document.querySelector('genestureport-card').FnClear();
+      //document.querySelector('chequedetail-card').ready();
       
     }
     if(currpage=="bouncechequedetail"){
