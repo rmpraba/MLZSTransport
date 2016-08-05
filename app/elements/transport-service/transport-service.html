@@ -1012,6 +1012,19 @@ busreport<link rel="import" href="../../bower_components/polymer/polymer.html">
       debounce-duration="300"
       >
     </iron-ajax>
+
+
+    <iron-ajax
+      method="post"
+      id="deletechequeajax"
+      url="{{deletechequeurl}}"
+      params="{{deletechequeparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="deletechequeResponse"
+      debounce-duration="300"
+      >
+    </iron-ajax>
     </template>
   <script>
   (function() {
@@ -3253,6 +3266,20 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
         this.updateeditchequeparam=obj;
         //alert(JSON.stringify(obj));
         this.$.updateeditchequeajax.generateRequest();
+
+    },
+    Fndeletecheque:function(cheqno,studid,instaltype)
+    {
+
+      this.deletechequeurl=sessionStorage.getItem("addrinfo")+"/deletecheque";
+        var obj={"chequeno":"","installtype":"","stuid":"","schol":""}
+        obj.chequeno=cheqno;
+        obj.stuid=studid;
+        obj.installtype=instaltype;
+        obj.schol=sessionStorage.getItem("sch");
+        this.deletechequeparam=obj;
+        //alert(JSON.stringify(obj));
+        this.$.deletechequeajax.generateRequest();
 
     }
     });

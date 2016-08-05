@@ -4465,18 +4465,49 @@ app.post('/updateeditcheque',  urlencodedParser,function (req, res)
   var prevcheque={"cheque_no":req.query.prevcheque};
   var stuid={"student_id":req.query.stuid}; 
   var schoolx={"school_id":req.query.schol};
-  console.log(cheque_no);
-  console.log(bankname);
-  console.log(chequedate);
-  console.log(prevcheque);
-  console.log(stuid);
-  console.log(schoolx);
+  
     connection.query('update cheque_details set ?,?,? where ? and ? and ?',[cheque_no,bankname,chequedate,prevcheque,stuid,schoolx],
         function(err, rows)
         {
         if(err){
           console.log(err);
         }
+});
+});
+
+
+
+app.post('/deletecheque',  urlencodedParser,function (req, res)
+{
+  var cheque_no = {"cheque_no":req.query.chequeno};
+  var stuid={"student_id":req.query.stuid}; 
+  var install={"installtype":req.query.installtype};
+  var schoolx={"school_id":req.query.schol};
+  var qur1;
+  console.log(req.query.installtype);
+  if(req.query.installtype=="installment1")
+  {
+    qur1="update student_fee set receipt_no1='',installment_1='',installment_1Date='',modeofpayment1='',install1_status='' where student_id='"+req.query.stuid+"' and school_id='"+req.query.schol+"'";
+  }
+  else if(req.query.installtype=="installment2")
+  {
+    qur1="update student_fee set receipt_no2='',installment_2='',installment_2Date='',modeofpayment2='',install2_status='' where student_id='"+req.query.stuid+"' and school_id='"+req.query.schol+"'";
+  }
+    connection.query('delete from cheque_details where ? and ? and ? and ?',[cheque_no,stuid,schoolx,install],
+        function(err, rows)
+        {
+        if(!err)
+        {
+          console.log('yes');
+           connection.query(qur1,
+            function(err, rows){
+       if(rows.length>0) 
+        res.status(200).json({'returnval': rows});
+       else
+        res.status(200).json({'returnval': 'invalid'});
+      });
+        }
+
 });
 });
 

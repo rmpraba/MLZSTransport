@@ -47,8 +47,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="fields" style="margin-left: 1%;">
           <paper-input value={{chequedate2}}></paper-input>
         </div>
-        <paper-button class="ebutton" id="{{prevcheque}}" name="{{stuid}}"  on-click="editcheque">Submit</paper-button>
-        
+        <paper-button class="ebutton" id="{{prevcheque}}" name="{{stuid}}"  on-click="editcheque">Edit</paper-button>
+         <paper-button class="ebutton" id="{{prevcheque}}" name="{{stuid}}"  on-click="deletecheque">Delete</paper-button>
       </div>
        <transport-service id="service"></transport-service>
   </template>
@@ -63,6 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       {
          //alert('edit2'+this.chequedate2+''+this.bankname2+''+this.chequenum2+''+this.prevcheque+''+this.stuid);
         this.$.service.Fneditcheque(this.chequenum2,this.bankname2,this.chequedate2,this.prevcheque,this.stuid);
+        alert("Update the cheque details Successfully");
+      },
+      deletecheque:function()
+      {
+        this.$.service.Fndeletecheque(this.prevcheque,this.stuid,this.installtype2);
+        alert("Delete the cheque details Successfully");
       }
 
     });
