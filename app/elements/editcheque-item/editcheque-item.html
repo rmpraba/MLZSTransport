@@ -20,33 +20,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   {
 
         @apply(--layout-horizontal);
+      }
 
+  
+  .ebutton
+  {
+    margin-top: 2%;
   }
     </style>
      <div  class="horizontalframe">
       
-        <div class="fields" style="margin-left: 3%;">
+        <div class="fields" style="margin-left: 1%;">
           <paper-item>{{installtype1}}</paper-item>
         </div>
-        <div class="fields" style="margin-left: 6%;">
+        <div class="fields" style="margin-left: 1%;">
           <paper-item>{{installamt1}}</paper-item>
         </div>
-        <div class="fields" style="margin-left: 2%;">
+        <div class="fields" style="margin-left: 1%;">
           <paper-item>{{paytype1}}</paper-item>
         </div>
-        <div class="fields" style="margin-left: 4%;">
+        <div class="fields" style="margin-left: 0.5%;">
           <paper-input value="{{chequenum1}}"></paper-input>
         </div>
-        <div class="fields" style="margin-left: 3%;">
+        <div class="fields" style="margin-left: 1%;">
           <paper-input value="{{bankname1}}"></paper-input>
         </div>
-        <div class="fields" style="margin-left: 2%;">
+        <div class="fields" style="margin-left: 1%;">
           <paper-input value={{chequedate1}}></paper-input>
         </div>
-         <div>
-         <paper-button class="button" on-click="click">Submit</paper-button>
-         </div>
-
+         
+         <paper-button class="ebutton" id="{{prevcheque}}" name="{{stuid}}" on-click="editcheque">Submit</paper-button>
+  
+      
+ <transport-service id="service"></transport-service>
       </div>
   </template>
   <script>
@@ -56,12 +62,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'editcheque-item',
 
-      properties: {
-        foo: {
-          type: String,
-          value: 'editcheque-item',
-          notify: true
-        }
+     editcheque:function()
+      {
+        //alert('edit1'+this.chequedate1+''+this.bankname1+''+this.chequenum1+''+this.prevcheque+''+this.stuid);
+        this.$.service.Fneditcheque(this.chequenum1,this.bankname1,this.chequedate1,this.prevcheque,this.stuid);
       }
     });
   })();

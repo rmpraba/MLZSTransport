@@ -4461,9 +4461,17 @@ app.post('/updateeditcheque',  urlencodedParser,function (req, res)
 {
   var cheque_no = {"cheque_no":req.query.chequeno};
   var bankname={"bank_name":req.query.bankname};
-  var chequedate= {"cheque_date":chequedate};
+  var chequedate= {"cheque_date":req.query.chequedate};
   var prevcheque={"cheque_no":req.query.prevcheque};
-    connection.query('update cheque_details set ?,?,? where ?',[cheque_no,bankname,chequedate,prevcheque],
+  var stuid={"student_id":req.query.stuid}; 
+  var schoolx={"school_id":req.query.schol};
+  console.log(cheque_no);
+  console.log(bankname);
+  console.log(chequedate);
+  console.log(prevcheque);
+  console.log(stuid);
+  console.log(schoolx);
+    connection.query('update cheque_details set ?,?,? where ? and ? and ?',[cheque_no,bankname,chequedate,prevcheque,stuid,schoolx],
         function(err, rows)
         {
         if(err){
