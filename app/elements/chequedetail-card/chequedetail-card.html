@@ -89,6 +89,10 @@ ready:function()
 },
 refreshchequedetail:function()
 {
+         this.$.search.hidden=true;
+          this.chequearr=[];
+          this.$.button.hidden=true;
+          this.value="";
 //this.$.service.checkchequedetails();
 },
 showfromcheque:function(showdate1)
@@ -130,6 +134,9 @@ changeHandler:function(e){
         {
           this.chequearr=[];
           this.$.search.hidden=false;
+          
+          document.querySelector('fchequedatepicker-card').readonlydate();
+          document.querySelector('tchequedatepicker-card').readonlydate();
           //this.$.maps.selectname();
           //this.studentarr=[];
           //document.querySelector('#gradeselect').selected=-1;
@@ -139,6 +146,12 @@ changeHandler:function(e){
         else
         {
           this.$.search.hidden=true;
+          document.querySelector('fchequedatepicker-card').enabledate();
+          document.querySelector('tchequedatepicker-card').enabledate();
+          this.chequearr=[];
+          this.$.button.hidden=true;
+          this.value="";
+
         }
 
         },
@@ -147,6 +160,7 @@ changeHandler:function(e){
           //alert(namearr);
         },
         FnInputChanged:function(e){
+          this.chequearr=[];
           if(e.keyCode==13|| e.keyCode==40)
             this.querySelector('paper-listbox').focus();
           var arr=[];
@@ -211,6 +225,7 @@ changeHandler:function(e){
         },
         FnItemSelected:function(e1)
         {
+          this.$.button.hidden=false;
           this.studid= e1.target.selectedItem.value;
           var studname = (e1.target.selectedItem.textContent).trim();
           //alert(this.studid);

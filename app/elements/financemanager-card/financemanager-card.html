@@ -94,7 +94,9 @@
       {
         this.$.transportservice.generatenameforcheque();
         //this.$.trservice.checkchequedetails();
+
          document.querySelector('transport-app').setPage("chequedetail","Cheque Detail");
+         document.querySelector('chequedetail-card').refreshchequedetail();
 
       },
        bouncecheque:function()

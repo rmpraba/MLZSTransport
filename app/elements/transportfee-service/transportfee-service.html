@@ -588,9 +588,9 @@ var installtype2date;
         var receiptschoolid=e.detail.response.returnval[0].schoolid;
          receiptseq=e.detail.response.returnval[0].sequence;
          ackseq=e.detail.response.returnval[0].ackseq;
-         var  instaldate=localStorage.getItem("localsess_install_date");
+         //var  instaldate=new Date();
          //alert(instaldate);
-         var condate = new Date(instaldate);
+         var condate = new Date();
         if(condate.getDate()<10)
         {
             insdate="0"+condate.getDate();
@@ -601,7 +601,7 @@ var installtype2date;
            }
          
        var insfromdate=condate.getFullYear()+"-"+(condate.getMonth()+1)+"-"+insdate;
-       //alert(insfromdate);
+       alert(insfromdate);
         for(var i=0;i<rpayfee.length;i++)
         {
         if(rpayfee[i].paytype=="Cash")
