@@ -999,6 +999,19 @@ busreport<link rel="import" href="../../bower_components/polymer/polymer.html">
       debounce-duration="300"
       >
     </iron-ajax>
+
+
+    <iron-ajax
+      method="post"
+      id="updateeditchequeajax"
+      url="{{updateeditchequeurl}}"
+      params="{{updateeditchequeparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="updateeditchequeResponse"
+      debounce-duration="300"
+      >
+    </iron-ajax>
     </template>
   <script>
   (function() {
@@ -3210,6 +3223,17 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
             var res=e.detail.response.returnval;
             //alert(JSON.stringify(res));
             document.querySelector('staffreport-card').staffreport=res;
+    },
+    Fneditcheque:function(chequenum,bankname,chequedate2,prevcheque)
+    {
+        this.updateeditchequeurl=sessionStorage.getItem("addrinfo")+"/updateeditcheque";
+        var obj={"chequeno":"","bankname":"","chequedate":"","prevcheque":""}
+        obj.chequeno=chequenum;
+        obj.bankname=bankname;
+        obj.chequedate=chequedate2;
+        obj.prevcheque=prevcheque;
+        this.updateeditchequeparam=obj;
+        this.$.updateeditchequeajax.generateRequest();
     }
     });
  })();

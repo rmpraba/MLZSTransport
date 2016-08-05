@@ -54,14 +54,12 @@
             <paper-tab>Cheque Date</paper-tab>
           </paper-tabs>
            <template  is="dom-repeat" items="{{editarr1}}" as="view">
-            <edit-cheque-item-card installtype1="{{view.installtype1}}" installamt1="{{view.installamt1}}" paytype1="{{view.paytype1}}" chequenum1="{{view.chequenum1}}" bankname1="{{view.bankname1}}" chequedate1="{{view.chequedate1}}"></edit-cheque-item-card>
+            <editcheque-item installtype1="{{view.installtype1}}" installamt1="{{view.installamt1}}" paytype1="{{view.paytype1}}" prevcheque="{{view.chequenum1}}" chequenum1="{{view.chequenum1}}" bankname1="{{view.bankname1}}" chequedate1="{{view.chequedate1}}"></editcheque-item>
           </template>
           <template  is="dom-repeat" items="{{editarr2}}" as="views">
-            <edit-cheque2-item-card installtype2="{{views.installtype2}}" installamt2="{{views.installamt2}}" paytype2="{{views.paytype2}} "chequenum2="{{views.chequenum2}}" bankname2="{{views.bankname2}}" chequedate2="{{views.chequedate2}}"></edit-cheque2-item-card>
+            <editcheque2-item installtype2="{{views.installtype2}}" installamt2="{{views.installamt2}}" paytype2="{{views.paytype2}} " prevcheque="{{view.chequenum2}}" chequenum2="{{views.chequenum2}}" bankname2="{{views.bankname2}}" chequedate2="{{views.chequedate2}}"></editcheque2-item>
           </template>
-          <div class="button">
-            <paper-button class="button" on-click="click">Submit</paper-button>
-          </div>
+        
         </div>
       </div>
       <transport-service id="service"></transport-service>

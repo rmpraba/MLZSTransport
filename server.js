@@ -4414,6 +4414,36 @@ app.post('/staffroute',  urlencodedParser,function (req, res)
 });
 });
 
+
+
+app.post('/updateeditcheque',  urlencodedParser,function (req, res)
+{
+  var cheque_no = {"cheque_no":req.query.chequeno};
+  var bankname={"bank_name":req.query.bankname};
+  var chequedate= {"cheque_date":chequedate};
+  var prevcheque={"cheque_no":req.query.prevcheque};
+    connection.query('update cheque_details set ?,?,? where ?',[cheque_no,bankname,chequedate,prevcheque],
+        function(err, rows)
+        {
+        if(err){
+          console.log(err);
+        }
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      console.log(err);
+      res.status(200).json({'returnval': 'invalid'});
+    }
+  }
+});
+  });
+
+
 function setvalue(){
   console.log("calling setvalue.....");
 }

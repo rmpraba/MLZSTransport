@@ -43,7 +43,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="fields" style="margin-left: 2%;">
           <paper-input value={{chequedate2}}></paper-input>
         </div>
+        <div>
+        <paper-button class="button" id="{{prevcheque}}"  on-click="editcheque">Submit</paper-button>
+        </div>
       </div>
+       <transport-service id="service"></transport-service>
   </template>
   <script>
   (function() {
@@ -58,7 +62,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'editcheque2-item',
           notify: true
         }
+      },
+      editcheque:function()
+      {
+        
+        this.$.service.Fneditcheque(this.chequenum2,this.bankname2,this.chequedate2,this.prevcheque);
       }
+
     });
   })();
   </script>
