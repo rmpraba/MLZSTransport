@@ -4538,7 +4538,7 @@ app.post('/getfeechequedetails',  urlencodedParser,function (req, res)
           var acknowno={"receipt_no1":req.query.acknow};
     var receiptno={"new_receipt1":req.query.receipt};    
        }
-       if(type="installment2"){
+       else if(type="installment2"){
           var acknowno={"receipt_no2":req.query.acknow};
     var receiptno={"new_receipt2":req.query.receipt};    
        }

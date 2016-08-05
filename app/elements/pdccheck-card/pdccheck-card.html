@@ -247,6 +247,8 @@ print1:function(){
     document.querySelector('pdcreceipt-card').cqdate=this.chequedate1;
     document.querySelector('pdcreceipt-card').bknm=this.bankname1;
     document.querySelector('pdcreceipt-card').ackno=this.ack1;
+   document.querySelector('transport-app').setPage("pdcreceiptcard","Fee Receipt");
+
 },
 print2:function(){
   var dt=new Date();
@@ -274,6 +276,8 @@ print2:function(){
     document.querySelector('pdcreceipt-card').cqdate=this.chequedate2;
     document.querySelector('pdcreceipt-card').bknm=this.bankname2;
     document.querySelector('pdcreceipt-card').ackno=this.this.ack2;
+    document.querySelector('transport-app').setPage("pdcreceiptcard","Fee Receipt");
+
 }
 
     });
