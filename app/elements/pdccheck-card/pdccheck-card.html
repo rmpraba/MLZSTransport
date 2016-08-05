@@ -1,0 +1,282 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="..\..\bower_components/polymer/polymer.html">
+
+<dom-module id="pdccheck-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="top">
+
+    <paper-input label="Enter Student ID Or Class ID or Student Name" value="{{value}}" on-keydown="FnInputChanged"></paper-input>
+      <paper-listbox id="itemlist1" class="dropdown-content" on-iron-select="FnItemSelected">
+        <template is="dom-repeat" items="{{itemArray}}" as="item">
+          <paper-item value="{{item.id}}">{{item.itemdes}}</paper-item>
+        </template>
+      </paper-listbox>
+    </div>
+
+    <div class="studentdetails">
+      <button  class="collapse" on-click="toggle0">Student Details : {{studid}}</button>
+    <iron-collapse id="studentdetails" label="asdg" class="detail">
+    <div class="container flex-vertical">
+      <div class="flexchild-vertical reports">
+        <div class="profile-image">
+      <img src="../images/{{studid1}}.jpg"/>
+    </div>
+    <div class="flexchild-vertical">
+      <paper-item>Student Id:</paper-item> <paper-item >{{studid}}</paper-item>
+      <paper-item>Student Name:</paper-item><paper-item >{{name}}</paper-item>
+    </div>
+  </div>
+    <div class="flexchild-vertical report">
+      <paper-item>Class:</paper-item><paper-item>{{classes}}/{{secn}}</paper-item>
+      <paper-item>School Type:</paper-item><paper-item >{{school}}</paper-item>
+    </div>
+    <div class="flexchild-vertical report">
+      <paper-item>Zone:</paper-item> <paper-item  >{{zone}}</paper-item>
+      <paper-item>Date of Birth: </paper-item><paper-item >{{dob}}</paper-item>
+      <paper-item>Parent Name: </paper-item><paper-item >{{parentname}}</paper-item>
+    </div>
+    <div class="flexchild-vertical report">
+      <paper-item>Bus Fee:</paper-item><paper-item >{{fee}}</paper-item>
+      </div>
+      </div>
+  </iron-collapse>
+</div>
+
+
+    <div class="body" id="install1">
+      <button  class="collapse" on-click="toggle">Type : Installment 1</button>
+    <iron-collapse id="firstinstall" label="asdg" class="detail">
+    <div class="container flex-vertical">
+      
+   
+    <div class="flexchild-vertical report">
+     
+      <paper-item>Paid: </paper-item><paper-item >{{paid1}}</paper-item>
+       <paper-item>Ack. No:</paper-item><paper-item >{{ack1}}</paper-item>
+    </div>
+    <div class="flexchild-vertical report">
+     
+      <paper-item>Receipt No: </paper-item><paper-item >{{receipt1}}</paper-item>
+      <paper-item>Cheque No: </paper-item><paper-item >{{chequeno1}}</paper-item>
+      <paper-item>Cheque Date: </paper-item><paper-item >{{chequedate1}}</paper-item>
+      <paper-item>Bank Name: </paper-item><paper-item >{{bankname1}}</paper-item>
+      <paper-button class="button" on-click="generate1">Generate</paper-button>
+      <paper-button class="button" on-click="print1">Get Receipt</paper-button>
+    </div>
+    </div>
+  </iron-collapse>
+</div>
+
+
+<div class="body2" id="install2">
+<button  class="collapse" on-click="toggle1">Type : Installment 2</button>
+    <iron-collapse id="secondinstall" class="detail">
+    <div class="container flex-vertical">
+   
+   
+    <div class="flexchild-vertical report">
+      
+      <paper-item>Paid: </paper-item><paper-item >{{paid2}}</paper-item>
+      <paper-item>Ack. No:</paper-item><paper-item >{{ack2}}</paper-item>
+    </div>
+    <div class="flexchild-vertical report">
+      
+      <paper-item>Receipt No: </paper-item><paper-item >{{receipt2}}</paper-item>
+      <paper-item>Cheque No: </paper-item><paper-item >{{chequeno2}}</paper-item>
+      <paper-item>Cheque Date: </paper-item><paper-item >{{chequedate2}}</paper-item>
+      <paper-item>Bank Name: </paper-item><paper-item >{{bankname2}}</paper-item>
+      <paper-button class="button" on-click="generate2">Generate</paper-button>
+      <paper-button class="button" on-click="print2">Get Receipt</paper-button>
+    </div>
+    </div>
+  </iron-collapse>
+    </div>
+
+
+     <transportfee-service id="trservice"></transportfee-service>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+var namearr=[];
+var idd="0";
+    Polymer({
+      is: 'pdccheck-card',
+ ready: function() {
+        this.querySelector('paper-listbox').style.visibility='hidden';
+   },
+      autocompletename(nameitem)
+   {
+namearr=nameitem;
+   },
+   FnInputChanged:function(e){
+    // alert(e.keyCode);
+      if(e.keyCode==13|| e.keyCode==40)
+        this.querySelector('paper-listbox').focus();
+      var arr=[];
+      arr.push({"itemdes":"-----Select-----"});
+      this.querySelector('paper-listbox').style.visibility='visible';
+      if(e.keyCode==8){
+        this.itemflag="true";
+        this.itemval="";
+        //alert('yes');
+        var len=(this.value).length;
+        if(len<=1){
+          this.querySelector('paper-listbox').style.visibility='hidden';
+          this.itemArray="";
+          this.itemval="";
+        }
+        if(len>1){
+          this.querySelector('paper-listbox').style.visibility='visible';
+          var backsubval=(((this.value).substring(0,(len-1))).trim()).toUpperCase();
+          for(var i=0;i<namearr.length;i++)
+          {
+            var subval=((namearr[i].student_name).trim()).substring(0,backsubval.length);
+            if((subval).toUpperCase()==(backsubval).toUpperCase())
+            {
+              var obj={"itemdes":""};
+              obj.itemdes=namearr[i].student_name;
+              arr.push(obj);
+            }
+          }
+          this.itemArray=arr;
+        }
+      }
+      if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39){
+        if(this.itemflag=="true") {
+          this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
+          this.itemflag="false";
+        }
+        else
+        this.itemval = this.value +String.fromCharCode((e.keyCode));
+        if(this.itemval.length>0)
+        {
+          for(var i=0;i<namearr.length;i++){
+            var subval=((namearr[i].student_name).trim()).substring(0,this.itemval.length);
+            if((subval).toUpperCase()==(this.itemval).toUpperCase())
+            {
+              var obj={"itemdes":"","id":""};
+              obj.itemdes=namearr[i].student_name;
+              obj.id=namearr[i].student_id;
+              arr.push(obj);
+            }
+          }
+          if(arr.length>0)
+            this.itemArray=arr;
+          else
+          {
+            var obj={"itemdes":""};
+            obj.itemdes="No items found";
+            arr.push(obj);
+            this.itemArray=arr;
+          }
+        }
+      }
+    },
+   FnItemSelected:function(e)
+   {
+    this.querySelector('paper-listbox').style.visibility='hidden';
+    this.studid = e.target.selectedItem.textContent.trim();
+    var stid=e.target.selectedItem.value;
+    this.itemArray=[];
+    //alert(this.studid+'    '+stid);
+    document.querySelector("#itemlist1").selected=-1;
+    //this.$.service.generatefee(this.studid);
+    this.$.trservice.getstudentfeedetails(stid);
+   },generate1:function(){
+    this.$.trservice.generatereceipt(this.studid,this.ack1,'installment1');
+   },
+   generate2:function(){
+    this.$.trservice.generatereceipt(this.studid,this.ack2,'installment2');
+   },
+   toggle: function()
+   {
+      document.querySelector("#firstinstall").toggle();
+},
+toggle1:function(){
+     document.querySelector("#secondinstall").toggle();
+    
+},
+toggle0:function(){
+     document.querySelector("#studentdetails").toggle();
+},
+installment1cash:function(){
+    this.$.install1.hidden=true;
+},
+installment2cash:function(){
+    this.$.install2.hidden=true;
+},
+print1:function(){
+  var dt=new Date();
+      //var todate=dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear();
+      var yr=dt.getFullYear()+' - '+(dt.getFullYear()+1);
+      var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
+      var curr_date = dt.getDate();
+      var curr_month = dt.getMonth();
+      var curr_year = dt.getFullYear();
+      var todate = curr_date + "-" + m_names[curr_month]+ "-" + curr_year;
+
+      document.querySelector('pdcreceipt-card').schoolname=sessionStorage.getItem("schoolname");
+      document.querySelector('pdcreceipt-card').schooladdr=sessionStorage.getItem("schooladdr");
+    document.querySelector('pdcreceipt-card').receiptno=this.receipt1;
+    document.querySelector('pdcreceipt-card').today=todate;
+    document.querySelector('pdcreceipt-card').studname=this.name;
+    document.querySelector('pdcreceipt-card').parent=this.parentname;
+    document.querySelector('pdcreceipt-card').classname=this.classes;
+    document.querySelector('pdcreceipt-card').section=this.secn;
+    document.querySelector('pdcreceipt-card').installtype="Installment1";
+    document.querySelector('pdcreceipt-card').installfee=this.paid1;
+    document.querySelector('pdcreceipt-card').totalfee=this.paid1;
+
+    document.querySelector('pdcreceipt-card').paytype="Cheque";
+    document.querySelector('pdcreceipt-card').cheno=this.chequeno1;
+    document.querySelector('pdcreceipt-card').cqdate=this.chequedate1;
+    document.querySelector('pdcreceipt-card').bknm=this.bankname1;
+    document.querySelector('pdcreceipt-card').ackno=this.ack1;
+},
+print2:function(){
+  var dt=new Date();
+      //var todate=dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear();
+      var yr=dt.getFullYear()+' - '+(dt.getFullYear()+1);
+      var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
+      var curr_date = dt.getDate();
+      var curr_month = dt.getMonth();
+      var curr_year = dt.getFullYear();
+      var todate = curr_date + "-" + m_names[curr_month]+ "-" + curr_year;
+      document.querySelector('pdcreceipt-card').schoolname=sessionStorage.getItem("schoolname");
+      document.querySelector('pdcreceipt-card').schooladdr=sessionStorage.getItem("schooladdr");
+    document.querySelector('pdcreceipt-card').receiptno=this.receipt2;
+    document.querySelector('pdcreceipt-card').today=todate;
+    document.querySelector('pdcreceipt-card').studname=this.name;
+    document.querySelector('pdcreceipt-card').parent=this.parentname;
+    document.querySelector('pdcreceipt-card').classname=this.classes;
+    document.querySelector('pdcreceipt-card').section=this.secn;
+    document.querySelector('pdcreceipt-card').installtype="Installment2";
+    document.querySelector('pdcreceipt-card').installfee=this.paid2;
+    document.querySelector('pdcreceipt-card').totalfee=this.paid2;
+
+    document.querySelector('pdcreceipt-card').paytype="Cheque";
+    document.querySelector('pdcreceipt-card').cheno=this.chequeno2;
+    document.querySelector('pdcreceipt-card').cqdate=this.chequedate2;
+    document.querySelector('pdcreceipt-card').bknm=this.bankname2;
+    document.querySelector('pdcreceipt-card').ackno=this.this.ack2;
+}
+
+    });
+  })();
+  </script>
+</dom-module>

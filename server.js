@@ -4414,6 +4414,161 @@ app.post('/staffroute',  urlencodedParser,function (req, res)
 });
 });
 
+app.post('/getnameforpdc',  urlencodedParser,function (req, res)
+{
+    var schoolx={"school_id":req.query.schol};
+        connection.query("select student_id, (select student_name from student_details where id=student_id and ?) as student_name from student_fee WHERE ? and (modeofpayment1='Cheque' or modeofpayment2='Cheque')",[schoolx,schoolx],
+        function(err, rows)
+        {
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      res.status(200).json({'returnval': 'invalid'});
+    }
+  }
+});
+});
+
+
+app.post('/getstudentfeedetails',  urlencodedParser,function (req, res)
+{
+    var schoolx={"school_id":req.query.schol};
+    var sid={"student_id":req.query.stid};
+        connection.query("SELECT *,(select parent_name from parent where parent.student_id=student_fee.student_id and parent.school_id=student_fee.school_id) as parent, (select student_name from student_details where id=student_id and school_id=school_id) as student_name, (select zone_name from md_zone where id=zone_id and school_id=school_id) as zone,(SELECT school_type from student_details where id=student_id and school_id=school_id) as schooltype, (SELECT dob from student_details where id=student_id and school_id=school_id) as dob,(SELECT (select class from class_details where id=class_id) as stnd from student_details where id=student_id and school_id=school_id) as grade,(SELECT (select section from class_details where id=class_id) as sec from student_details where id=student_id and school_id=school_id) as section FROM `student_fee` WHERE ? and ?",[sid,schoolx],
+        function(err, rows)
+        {
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      console.log(err);
+      res.status(200).json({'returnval': 'invalid'});
+    }
+  }
+});
+});
+
+
+
+app.post('/getfeechequedetails',  urlencodedParser,function (req, res)
+{
+    var schoolx={"school_id":req.query.schol};
+    var sid={"student_id":req.query.stid};
+        connection.query('SELECT * from cheque_details WHERE ? and ?',[sid,schoolx],
+        function(err, rows)
+        {
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      res.status(200).json({'returnval': 'invalid'});
+    }
+  }
+});
+});
+
+
+ app.post('/generatereceiptno',  urlencodedParser,function (req, res)
+{
+    var schoolx={"school_id":req.query.schol};
+    connection.query("SELECT sequence from receiptsequence WHERE ?",[schoolx],
+    function(err, rows)
+    {
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      res.status(200).json({'returnval': 'invalid'});
+    }
+  }
+});
+});
+
+
+ app.post('/updateseqpdcno' ,  urlencodedParser,function (req, res)
+{
+    var schoolx={"school_id":req.query.schol};
+    var point={"sequence":req.query.seq};
+      connection.query('update receiptsequence set ? where ?',[point,schoolx],
+        function(err, rows)
+        {
+        if(!err)
+    {
+      if(rows.length>0)
+      {
+
+      res.status(200).json({'returnval': rows});
+      }
+      else
+      {
+      res.status(200).json({'returnval': 'invalid'});
+      }
+    }
+    else
+    {
+      console.log('No data Fetched'+err);
+    }
+});
+  });
+
+
+
+ app.post('/updatepdcreceiptno' ,  urlencodedParser,function (req, res)
+{
+    var id={"id":req.query.sid};
+       var type=req.query.installtype;
+       if(type="installment1"){
+          var acknowno={"receipt_no1":req.query.acknow};
+    var receiptno={"new_receipt1":req.query.receipt};    
+       }
+       if(type="installment2"){
+          var acknowno={"receipt_no2":req.query.acknow};
+    var receiptno={"new_receipt2":req.query.receipt};    
+       }
+    
+    var schoolx={"school_id":req.query.schol};
+
+      connection.query('update student_fee set ? where ?,?,?',[receiptno,id,acknowno,schoolx],
+        function(err, rows)
+        {
+        if(!err)
+    {
+      if(rows.length>0)
+      {
+
+      res.status(200).json({'returnval': rows});
+      }
+      else
+      {
+      res.status(200).json({'returnval': 'invalid'});
+      }
+    }
+    else
+    {
+      console.log('No data Fetched'+err);
+    }
+});
+  });
+
+
+
 function setvalue(){
   console.log("calling setvalue.....");
 }

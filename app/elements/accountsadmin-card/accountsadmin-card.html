@@ -35,6 +35,7 @@
        <paper-icon-button class="iconbutton" src="../../images/pendingreport.jpg" on-click="pend"></paper-icon-button>
        <paper-icon-button class="iconbutton" src="../../images/receipt.png" on-click="receipt"></paper-icon-button>
        <paper-icon-button class="iconbutton" src="../../images/zonechange.png" on-click="zonechange"></paper-icon-button>
+       <paper-icon-button class="iconbutton" src="../../images/pdccheck.png" on-click="pdccheck"></paper-icon-button>
    
     </div>
   </body>
@@ -98,6 +99,10 @@
         document.querySelector('zonechange-card').hidetransport=true;
         document.querySelector('zonechange-card').hidetransport1=true;
         document.querySelector('transport-app').setPage("zonechange","Zone Change"); 
+      },
+      pdccheck:function(){
+        this.$.trservice.getnameforpdc();
+        document.querySelector('transport-app').setPage("pdcreceipt","Post Dated Cheque Receipt");
       }
       
     

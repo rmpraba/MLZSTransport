@@ -406,6 +406,78 @@
       debounce-duration="300"
     >
     </iron-ajax>
+    <!-- This fetch the list of student for pdc receipt generation -->
+     <iron-ajax
+      method="post"
+      id="getnameforpdcajax"
+      url="{{getnameforpdcurl}}"
+      params="{{getnameforpdcparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="getnameforpdcResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
+    <!-- Took the fee details of the student -->
+    <iron-ajax
+      method="post"
+      id="getstudentfeedetailsajax"
+      url="{{getstudentfeedetailsurl}}"
+      params="{{getstudentfeedetailsparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="getstudentfeedetailsResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
+      <!-- take the cheque details of the students -->
+       <iron-ajax
+      method="post"
+      id="getfeechequedetailsajax"
+      url="{{getfeechequedetailsurl}}"
+      params="{{getfeechequedetailsparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="getfeechequedetailsResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
+      <!-- generate the new receipt no instead of acknowledgement -->
+      <iron-ajax
+      method="post"
+      id="generatereceiptnoajax"
+      url="{{generatereceiptnourl}}"
+      params="{{generatereceiptnoparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="generatereceiptnoResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
+    <!-- to update the sequence no in the receiptsequence table -->
+    <iron-ajax
+      method="post"
+      id="updateseqpdcnoajax"
+      url="{{updateseqpdcnourl}}"
+      params="{{updateseqpdcnoparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="updateseqpdcnoResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
+    <!-- to update the receipt no in the student fee table -->
+    <iron-ajax
+      method="post"
+      id="updatepdcreceiptnoajax"
+      url="{{updatepdcreceiptnourl}}"
+      params="{{updatepdcreceiptnoparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="updatepdcreceiptnoResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
     </template>
 
      <script>
@@ -454,6 +526,9 @@ var paycount;
 var bouncechequearr=[];
 var bouncestuarr=[];
 var installtype2date;
+var studentid_pdc;
+var acknow_pdc;
+var installtype_pdc;
 
     Polymer({
       is: "transportfee-service",
@@ -2103,6 +2178,113 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
       {
         var nameitem=e.detail.response.returnval;
         document.querySelector('discountstudent-card').autocompletename(nameitem);
+      },
+      getnameforpdc:function(){
+          this.getnameforpdcurl=sessionStorage.getItem("addrinfo")+"/getnameforpdc";
+       var obj={"schol":""}
+      obj.schol=sessionStorage.getItem("sch");
+      this.getnameforpdcparam=obj;
+       this.$.getnameforpdcajax.generateRequest();
+      },
+      getnameforpdcResponse:function(e){
+          var res=e.detail.response.returnval;
+          document.querySelector('pdccheck-card').autocompletename(res);  
+      },
+      getstudentfeedetails:function(id){
+        this.getstudentfeedetailsurl=sessionStorage.getItem("addrinfo")+"/getstudentfeedetails";
+       var obj={"schol":"","stid":""}
+      obj.schol=sessionStorage.getItem("sch");
+      obj.stid=id;
+      this.getstudentfeedetailsparam=obj;
+       this.$.getstudentfeedetailsajax.generateRequest();
+
+       this.getfeechequedetailsurl=sessionStorage.getItem("addrinfo")+"/getfeechequedetails";
+       this.getfeechequedetailsparam=obj;
+       this.$.getfeechequedetailsajax.generateRequest();
+      },
+      getstudentfeedetailsResponse:function(e){
+          var res=e.detail.response.returnval;
+          alert(JSON.stringify(res));
+          document.querySelector('pdccheck-card').studid=res[0].student_id;
+          document.querySelector('pdccheck-card').name=res[0].student_name;
+          document.querySelector('pdccheck-card').classes=res[0].grade;
+          document.querySelector('pdccheck-card').secn=res[0].section;
+          document.querySelector('pdccheck-card').school=res[0].schooltype;
+          document.querySelector('pdccheck-card').zone=res[0].zone;
+          document.querySelector('pdccheck-card').dob=res[0].dob;
+          document.querySelector('pdccheck-card').fee=res[0].fees;
+          document.querySelector('pdccheck-card').parentname=res[0].parent;
+
+          if(res[0].modeofpayment1=='Cheque'){
+            document.querySelector('pdccheck-card').paid1=res[0].installment_1;
+            document.querySelector('pdccheck-card').ack1=res[0].receipt_no1;
+            document.querySelector('pdccheck-card').receipt1=res[0].newreceipt_1;
+          }else{
+            document.querySelector('pdccheck-card').installment1cash();
+          }
+
+          if(res[0].modeofpayment2=='Cheque'){
+            document.querySelector('pdccheck-card').paid2=res[0].installment_2;
+            document.querySelector('pdccheck-card').ack2=res[0].receipt_no2;
+            document.querySelector('pdccheck-card').receipt2=res[0].newreceipt_2;
+          }else{
+            document.querySelector('pdccheck-card').installment2cash();
+          }
+
+
+      },
+      getfeechequedetailsResponse:function(e){
+            var res=e.detail.response.returnval;
+            for(var i=0;i<res.length;i++){
+              if(res[i].installtype=='installment1'){
+            document.querySelector('pdccheck-card').chequeno1=res[i].cheque_no;
+            document.querySelector('pdccheck-card').bankname1=res[i].bank_name;
+            document.querySelector('pdccheck-card').chequedate1=res[i].cheque_date;
+              }
+              if(res[i].installtype=='installment2'){
+            document.querySelector('pdccheck-card').chequeno2=res[i].cheque_no;
+            document.querySelector('pdccheck-card').bankname2=res[i].bank_name;
+            document.querySelector('pdccheck-card').chequedate2=res[i].cheque_date;
+              }
+
+            }
+      },generatereceipt:function(studentid,acknowno,type){
+          studentid_pdc=studentid;
+          acknow_pdc=acknowno;
+          installtype_pdc=type;
+          this.generatereceiptnourl=sessionStorage.getItem("addrinfo")+"/generatereceiptno";
+          var obj={"schol":""}
+          obj.schol=sessionStorage.getItem("sch");
+          this.generatereceiptnoparam=obj;
+          this.$.generatereceiptnoajax.generateRequest();
+      },
+      generatereceiptnoResponse:function(e){
+        var res=e.detail.response.returnval[0].sequence;
+        res++;
+        var receiptno='REC 16-17-'+res;
+        if(installtype_pdc=='installment1'){
+               document.querySelector('pdccheck-card').receipt1=receiptno; 
+        }
+        else if(installtype_pdc=='installment2'){
+          document.querySelector('pdccheck-card').receipt2=receiptno; 
+        }
+        
+        this.updateseqpdcnourl=sessionStorage.getItem("addrinfo")+"/updateseqpdcno";
+        var obj={"schol":"","seq":""}
+        obj.schol=sessionStorage.getItem("sch");
+        obj.seq=res;
+        this.updateseqpdcnoparam=obj;
+        this.$.updateseqpdcnoajax.generateRequest();
+
+        this.updatepdcreceiptnourl=sessionStorage.getItem("addrinfo")+"/updatepdcreceiptno";
+        var boj={"schol":"","acknow":"","receipt":"","sid":""}
+        boj.schol=sessionStorage.getItem("sch");
+        boj.acknow=acknow_pdc;
+        boj.receipt=receiptno;
+        boj.sid=studentid_pdc;
+        boj.installtype=installtype_pdc;
+        this.updatepdcreceiptnoparam=boj;
+        this.$.updatepdcreceiptnoajax.generateRequest();
       }
     });
  })();
