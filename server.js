@@ -4442,7 +4442,7 @@ app.post('/getstudentfeedetails',  urlencodedParser,function (req, res)
         connection.query("SELECT *,(select parent_name from parent where parent.student_id=student_fee.student_id and parent.school_id=student_fee.school_id) as parent, (select student_name from student_details where id=student_id and school_id=school_id) as student_name, (select zone_name from md_zone where id=zone_id and school_id=school_id) as zone,(SELECT school_type from student_details where id=student_id and school_id=school_id) as schooltype, (SELECT dob from student_details where id=student_id and school_id=school_id) as dob,(SELECT (select class from class_details where id=class_id) as stnd from student_details where id=student_id and school_id=school_id) as grade,(SELECT (select section from class_details where id=class_id) as sec from student_details where id=student_id and school_id=school_id) as section FROM `student_fee` WHERE ? and ?",[sid,schoolx],
         function(err, rows)
         {
-    if(!err)
+      if(!err)
     {
     if(rows.length>0)
     {
@@ -4457,6 +4457,20 @@ app.post('/getstudentfeedetails',  urlencodedParser,function (req, res)
 });
 });
 
+app.post('/updateeditcheque',  urlencodedParser,function (req, res)
+{
+  var cheque_no = {"cheque_no":req.query.chequeno};
+  var bankname={"bank_name":req.query.bankname};
+  var chequedate= {"cheque_date":chequedate};
+  var prevcheque={"cheque_no":req.query.prevcheque};
+    connection.query('update cheque_details set ?,?,? where ?',[cheque_no,bankname,chequedate,prevcheque],
+        function(err, rows)
+        {
+        if(err){
+          console.log(err);
+        }
+});
+});
 
 
 app.post('/getfeechequedetails',  urlencodedParser,function (req, res)
@@ -4566,7 +4580,6 @@ app.post('/getfeechequedetails',  urlencodedParser,function (req, res)
     }
 });
   });
-
 
 
 function setvalue(){
