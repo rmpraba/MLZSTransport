@@ -2232,15 +2232,21 @@ app.post('/updatestucheque',  urlencodedParser,function (req, res)
   var fine1=0;
   var fine2=0;
   var installamt;
+  var receiptno;
+  var receiptdate;
   if(installtype=="installment1")
   {
     if(req.query.paidstatus=="bounce")
     {
       fine1=250;
+      receiptno={"newreceiptno_1":req.query.receiptseq};
+     receiptdate={"receipt1_date":req.query.newreceiptdate};
       //installamt={"installment_1":0};
     }
     else
     {
+      receiptno={"newreceiptno_1":req.query.receiptseq};
+      receiptdate={"receipt1_date":req.query.newreceiptdate};
       fine1=0;
     }
     chequestatus={"install1_status":req.query.paidstatus};
@@ -2251,12 +2257,16 @@ app.post('/updatestucheque',  urlencodedParser,function (req, res)
   {
     if(req.query.paidstatus=="bounce")
     {
+      receiptno={"newreceiptno_2":req.query.receiptseq};
       fine2=250;
+      receiptdate={"receipt2_date":req.query.newreceiptdate};
       //installamt={"installment_2":0};
     }
     else
     {
+      receiptno={"newreceiptno_2":req.query.receiptseq};
       fine2=0;
+      receiptdate={"receipt2_date":req.query.newreceiptdate};
     }
          chequestatus={"install2_status":req.query.paidstatus};
           //updatefine={"install2_fine":install2_fine+fine};
@@ -2268,14 +2278,14 @@ app.post('/updatestucheque',  urlencodedParser,function (req, res)
   chequename={"student_id":req.query.chequename}
 
   //console.log(chequename);
-       connection.query('update student_fee set ?,install1_fine=install1_fine+?,install2_fine=install2_fine+? where ? and ?', [chequestatus,fine1,fine2,chequename,schoolx],
+       connection.query('update student_fee set ?,?, ?,install1_fine=install1_fine+?,install2_fine=install2_fine+? where ? and ?',[receiptno,receiptdate,chequestatus,fine1,fine2,chequename,schoolx],
 
         function(err, rows)
         {
     if(!err)
     {
 
-//       console.log('ccyes');
+      console.log('ccyes');
       res.status(200).json({'returnval': 'success'});
 
     }

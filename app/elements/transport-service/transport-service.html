@@ -2164,16 +2164,36 @@ else
 {
   title="RECEIPT";
 }
+//alert(feedet[0].newreceiptno_1);
+
 
 var recobj={"email":"","receiptid":"","studname":"","classname":"","section":"","installtype":"","installfee":"","paytype":"","receiptno":"","fine":""}
-var dt1=new Date(feedet[0].installment_1Date);
 
+var dt1;
+  if(feedet[0].newreceiptno_1==''||feedet[0].newreceiptno_1==null)
+{
+
+dt1=new Date(feedet[0].installment_1Date);
+}
+else
+{
+    dt1=new Date(feedet[0].receipt1_date);
+}
  var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
       var curr_date = dt1.getDate();
       var curr_month = dt1.getMonth();
       var curr_year = dt1.getFullYear();
       var todate = curr_date + "-" + m_names[curr_month]+ "-" + curr_year;
-recobj.receiptno=feedet[0].receipt_no1;
+
+      if(feedet[0].newreceiptno_1==''||feedet[0].newreceiptno_1==null)
+{
+   recobj.receiptno=feedet[0].receipt_no1;
+}
+else
+{
+   recobj.receiptno=feedet[0].newreceiptno_1;
+}
+
 recobj.studname=studentname;
 recobj.classname=feeparent[0].class;
 recobj.section=feeparent[0].section;
@@ -2321,7 +2341,16 @@ var fineamt=feedet[0].install2_fine;
   //document.querySelector('transport-app').setPage("receipt","Receipt");
  var chword=document.querySelector('transport-service').convertrs(feezxc,fineamt);
 //alert(installment_1Date);
-var dt3=new Date(feedet[0].installment_2Date);
+var dt3;
+  if(feedet[0].newreceiptno_2==''||feedet[0].newreceiptno_2==null)
+{
+
+dt3=new Date(feedet[0].installment_2Date);
+}
+else
+{
+    dt3=new Date(feedet[0].receipt2_date);
+}
 
  var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
       var curr_date = dt3.getDate();
@@ -2339,7 +2368,16 @@ else
 }
 
 var recobj1={"email":"","receiptid":"","studname":"","classname":"","section":"","installtype":"","installfee":"","paytype":"","receiptno":"","fine":""}
-recobj1.receiptno=feedet[0].receipt_no2;
+  if(feedet[0].newreceiptno_2==''||feedet[0].newreceiptno_2==null)
+{
+   recobj1.receiptno=feedet[0].receipt_no2;
+}
+else
+{
+    title1="RECEIPT";
+   recobj1.receiptno=feedet[0].newreceiptno_2;
+}
+//recobj1.receiptno=feedet[0].receipt_no2;
 recobj1.studname=studentname;
 recobj1.classname=feeparent[0].class;
 recobj1.section=feeparent[0].section;

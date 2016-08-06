@@ -292,6 +292,19 @@
         >
   </iron-ajax>
 
+
+<iron-ajax
+        method="post"
+        id="newreceiptseqajax"
+        url="{{newreceiptsequrl}}"
+         params="{{newreceiptseqparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="newreceiptseqResponse"
+        debounce-duration="300"
+        >
+  </iron-ajax>
+
  <iron-ajax
         method="post"
         id="feereportajax"
@@ -325,6 +338,19 @@
         handle-as="json"
         content-type="application/json"
         on-response="updatereceiptseqResponse"
+        debounce-duration="300"
+        >
+  </iron-ajax>
+
+
+   <iron-ajax
+        method="post"
+        id="updatenewreceiptseqajax"
+        url="{{updatenewreceiptsequrl}}"
+         params="{{updatenewreceiptparam}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="updatenewreceiptseqResponse"
         debounce-duration="300"
         >
   </iron-ajax>
@@ -454,6 +480,7 @@ var paycount;
 var bouncechequearr=[];
 var bouncestuarr=[];
 var installtype2date;
+var newreceiptsequence;
 
     Polymer({
       is: "transportfee-service",
@@ -601,7 +628,7 @@ var installtype2date;
            }
          
        var insfromdate=condate.getFullYear()+"-"+(condate.getMonth()+1)+"-"+insdate;
-       alert(insfromdate);
+       //alert(insfromdate);
         for(var i=0;i<rpayfee.length;i++)
         {
         if(rpayfee[i].paytype=="Cash")
@@ -1341,6 +1368,8 @@ checkchequebyname:function(stnamee)
      },
      updatechequedetail:function(chqdetail)
      {
+      
+
        for(var i=0;i<chqdetail.length;i++)
         {
         uchequeno=chqdetail[i].cheque_no;
@@ -1356,6 +1385,20 @@ checkchequebyname:function(stnamee)
         this.$.updatechequedetailajax.generateRequest();
       }
      
+     },
+     generateseq:function()
+     {
+      this.newreceiptsequrl=sessionStorage.getItem("addrinfo")+"/receiptsequence";
+      var obj={"schol":""}
+      obj.schol=sessionStorage.getItem("sch");
+      this.newreceiptseqparam=obj;
+      this.$.newreceiptseqajax.generateRequest();
+     },
+     newreceiptseqResponse:function(e)
+     {
+       newreceiptsequence=e.detail.response.returnval[0].sequence;
+       newacksequence=e.detail.response.returnval[0].ackseq;
+      // alert(newreceiptsequence);
      },
      bouncechequedetail:function(chqdetail)
      {
@@ -1434,7 +1477,8 @@ for(var l=0;l<bouncechequearr.length;l++)
      updatestudentcheque:function(chqdetail)
      {
 
-
+        var newreceipt;
+        var newreceiptdate;
       //alert(JSON.stringify(chqdetail));
        var paidstatus;
        for(var j=0;j<chqdetail.length;j++)
@@ -1442,29 +1486,60 @@ for(var l=0;l<bouncechequearr.length;l++)
 
        
         if(chqdetail[j].cheque_status=="cleared")
-        {
-            paidstatus="paid";        }
+        {  var insdate;
+           var condate = new Date();
+           if(condate.getDate()<10)
+           {
+            insdate="0"+condate.getDate();
+           }
+           else
+           {
+            insdate=condate.getDate();
+           }
+         
+            var insfromdate=condate.getFullYear()+"-"+(condate.getMonth()+1)+"-"+insdate;
+            paidstatus="paid";   
+            newreceipt="REC16-17-"+newreceiptsequence;
+            newreceiptsequence=parseInt(newreceiptsequence)+1;
+            //alert('s'+newreceipt);
+            newreceiptdate=insfromdate;
+                }
         else if(chqdetail[j].cheque_status=="bounce")
         {
 
             paidstatus="bounce";
+            newreceipt=null;
+            newreceiptdate=null;
         }
         else if(chqdetail[j].cheque_status=="cancelled")
         {
           paidstatus="cancelled";
+          newreceipt=null;
+          newreceiptdate=null;
         }
 
         this.updatestuchequeurl=sessionStorage.getItem("addrinfo")+"/updatestucheque";
-        var obj={"chequename":"","installtype":"","paidstatus":"","schol":""}
+        var obj={"chequename":"","installtype":"","paidstatus":"","schol":"","receiptseq":"","newreceiptdate":""}
         obj.schol=sessionStorage.getItem("sch");
         obj.chequename=chqdetail[j].student_id;
         obj.installtype=chqdetail[j].installtype;
         obj.paidstatus=paidstatus;
+        obj.receiptseq=newreceipt;
+        obj.newreceiptdate=newreceiptdate;
         this.updatestuchequeparam=obj;
         //alert(JSON.stringify(obj));
         this.$.updatestuchequeajax.generateRequest();
       }
       
+       this.updatenewreceiptsequrl=sessionStorage.getItem("addrinfo")+"/updatereceiptsequence";
+        var obj={"schoolid":"","sequence":"","ackseq":""}
+        obj.schoolid=sessionStorage.getItem("sch");
+        obj.sequence =newreceiptsequence;
+        obj.ackseq=newacksequence;
+        this.updatenewreceiptparam =obj;
+        this.$.updatenewreceiptseqajax.generateRequest();
+
+
      },
      updatestuchequeResponse:function(e)
      {
