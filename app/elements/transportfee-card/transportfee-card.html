@@ -37,7 +37,7 @@
   </style>
       
       
-      <paper-input label="Enter Student ID Or Class ID or Student Name" value="{{value}}" on-keydown="FnInputChanged"></paper-input>
+      <paper-input label="Enter Student Name" value="{{value}}" on-keydown="FnInputChanged"></paper-input>
       <paper-listbox id="itemlist1" class="dropdown-content" on-iron-select="FnItemSelected">
         <template is="dom-repeat" items="{{itemArray}}" as="item">
           <paper-item>{{item.itemdes}}</paper-item>
@@ -170,7 +170,7 @@
 
   for(var i=0;i<feepay.length;i++)
      {
-        if(feepay[i].paytype=="Cheque")
+        if(feepay[i].paytype=="Cheque"||feepay[i].paytype=="Transfer")
          {
            for(var j=0;j<chequearray.length;j++)
          {

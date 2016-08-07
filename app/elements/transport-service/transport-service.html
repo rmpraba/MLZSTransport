@@ -1961,9 +1961,7 @@ getfeeofzonechangeResponse:function(e)
       {
         //alert(JSON.stringify(e.detail.response.returnval));
         zonefeechange=e.detail.response.returnval;
-        //alert(JSON.stringify(zonefeechange));
         
-         //alert(JSON.stringify(feedet));
         },
 getfeeparentResponse:function(e)
 {
@@ -2272,6 +2270,7 @@ zrecobj.email=feeparent[0].parentmail;
 zrecobj.schoolname=sessionStorage.getItem("schoolname");
 zrecobj.schooladdr=sessionStorage.getItem("schooladdr");
 zrecobj.title=title;
+
 document.querySelector('receipt-card').parentemail=feeparent[0].parentmail;
 var zpt=zonefeechange[0].modeofpayment1;
        if(zpt=='Cheque')
@@ -2396,7 +2395,6 @@ recobj1.email=feeparent[0].parentmail;
 recobj1.schoolname=sessionStorage.getItem("schoolname");
 recobj1.schooladdr=sessionStorage.getItem("schooladdr");
 recobj1.title=title1;
-
 var pt1=feedet[0].modeofpayment2;
        if(pt1=='Cheque')
        {
@@ -2463,7 +2461,6 @@ zrecobj1.email=feeparent[0].parentmail;
 zrecobj1.schoolname=sessionStorage.getItem("schoolname");
 zrecobj1.schooladdr=sessionStorage.getItem("schooladdr");
 zrecobj1.title=title;
-
 
 var pt1=feedet[0].modeofpayment2;
        if(pt1=='Cheque')
@@ -2729,7 +2726,7 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
             //alert(JSON.stringify(e.detail.response.returnval));
             var id = e.detail.response.returnval[0].student_id;
             var name = e.detail.response.returnval[0].name;
-             if(editchequedetail[0].modeofpayment1=="Cheque")
+             if(editchequedetail[0].modeofpayment1=="Cheque"&& editchequedetail[0].install1_status=="processing")
              {
             var obj={"installtype1":"","installamt1":"","paytype1":"","chequenum1":"","bankname1":"","chequedate1":""}
             obj.installamt1=editchequedetail[0].installment_1;
@@ -2750,7 +2747,7 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
             chequearr1.push(obj);
              document.querySelector('editcheque-card').editarr1=chequearr1;
         }
-        if(editchequedetail[0].modeofpayment2=="Cheque")
+        if(editchequedetail[0].modeofpayment2=="Cheque"&& editchequedetail[0].install2_status=="processing")
              {
             var obj1={"installtype2":"","installamt2":"","paytype2":"","chequenum2":"","bankname2":"","chequedate2":""}
             obj1.installamt2=editchequedetail[0].installment_2;

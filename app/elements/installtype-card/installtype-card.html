@@ -41,6 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <paper-menu class="dropdown-content" id="paymodemenu" on-iron-select="payment" valueattr="value" >
                    <paper-item value="Cheque" id="{{installtype}}">Cheque</paper-item>
                     <paper-item value="Cash" id="{{installtype}}">Cash</paper-item>
+                     <paper-item value="Transfer" id="{{installtype}}">Transfer</paper-item>
                 </paper-menu>
             </paper-dropdown-menu>
           </div>
@@ -61,6 +62,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </div>     
  </paper-dialog>
    
+
+
+    <paper-dialog id="creditinfo" modal>
+<h4>ADD CREDIT DETAILS</h4>
+ <div  class="layout"><paper-input required allowed-pattern="[1-9]" error-message="needs Receipt number!"  id="chequeno" label="Enter the Receipt No:" value="{{receiptno}}"> </paper-input></div>
+ <div  class="layout"> <paper-input required allowed-pattern="[a-zA-Z ]"  error-message="needs BankName!"  id="banknam" label="Enter the Bank Name" value="{{rbanknam}}"> </paper-input></div>
+ <div>
+ <datepicker-card></datepicker-card></div>
+<div class="buttons">
+  <paper-button id="{{installtype}}" on-click="addcredit">ADD</paper-button>
+</div>     
+ </paper-dialog>
 <transportfee-service id="service"></transportfee-service>
   </template>
   <script>
@@ -68,6 +81,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var paytype;
 var chequenum;
 var bankname;
+var receiptnum;
+var rbankame;
 var ck='null';
 var dt;
 var pushitem=[];
@@ -175,6 +190,19 @@ var fine;
         dialog.open();
        
        }
+       else if(paytype=="Transfer")
+       {
+
+           this.receiptno="";
+           this.rbanknam="";
+           type=this.installtype;
+           amt=this.installamt;
+           fine=this.fineamount;
+           var id = 'creditinfo';
+           var dialog = document.getElementById(id);
+           dialog.open();
+       
+       }
        else
        {
         var obj={"installamt":"","studid":"","paytype":"","installtype":"","fineamount":""}
@@ -189,10 +217,18 @@ var fine;
      },
      showdialog:function()
      {
-    
+       if(paytype=="Cheque")
+       {
        var id = 'chequeinfo';
         var dialog = document.getElementById(id);
         dialog.open();
+       }
+       else
+       {
+        var id = 'creditinfo';
+        var dialog = document.getElementById(id);
+        dialog.open();
+       }
      },
 
         add:function(e)
@@ -229,6 +265,45 @@ obj1.chequenum=chequenum;
 obj1.bankname=bankname;
 obj1.chequedate=this.chequedate;
 obj1.installtype=type;
+chequeitem.push(obj1);
+        document.querySelector('transportfee-card').Fnfeepayment(pushitem);
+        document.querySelector('transportfee-card').Fnchequepayment(chequeitem);
+
+      }
+    },
+    addcredit:function()
+    {
+
+       if(this.receiptno==""&&this.rbanknam=="")
+      {
+          this.$.receiptno.validate();
+          this.$.rbanknam.validate();
+      }
+      else
+      {
+      receiptnum=this.receiptno;
+      rbankname=this.rbanknam;
+     
+       var id = 'creditinfo';
+       var dialog = document.getElementById(id);
+       dialog.opened=false;
+       this.receiptno="";
+       this.rbanknam="";
+       var obj={"installamt":"","studid":"","paytype":"","installtype":"","fineamount":""}
+       obj.fineamount=fine;
+       obj.installamt=amt;
+       obj.studid=this.studid;
+       obj.paytype=paytype;
+       obj.installtype=type;
+        pushitem.push(obj);
+        this.chequedate=localStorage.getItem("localsess_curr_date");
+    var obj1={"studid":"","studname":"","chequenum":"","bankname":"","chequedate":"","installtype":""}
+    obj1.studid=this.studid;
+    obj1.studname=this.studname;
+    obj1.chequenum=receiptnum;
+    obj1.bankname=rbankname;
+    obj1.chequedate=this.chequedate;
+    obj1.installtype=type;
 chequeitem.push(obj1);
         document.querySelector('transportfee-card').Fnfeepayment(pushitem);
         document.querySelector('transportfee-card').Fnchequepayment(chequeitem);

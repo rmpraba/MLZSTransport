@@ -373,6 +373,11 @@
       document.querySelector('pending-card').ready();
       
     }
+    if(currpage=="feereceipt")
+    {
+     document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("accountadmin","Accounts Admin");
+    }
     if(currpage=="receipt"){
       document.querySelector('app-card').setPage("transportapp");
       document.querySelector('transport-app').setPage("accountadmin","Accounts Admin");
