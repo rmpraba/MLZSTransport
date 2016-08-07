@@ -36,16 +36,16 @@ var parentemail=req.query.parentemail;
   var bank=req.query.bank;
 //console.log(parentemail);
 var server  = email.server.connect({
-   user:    "samsidhgroup@yahoo.com",
+   user:    "samsidhgroupzeeschool@gmail.com",
    password:"mlzsinstitutions",
-   host:    "smtp.mail.yahoo.com",
+   host:    "smtp.gmail.com",
    ssl:     true
 
 });
 // send the message and get a callback with an error or details of the message that was sent
 server.send({
    text:    "FEE RECEIPT/ACKNOWLEDGEMENT",
-   from:    "samsidhgroup@yahoo.com",
+   from:    "samsidhgroupzeeschool@gmail.com",
    to:      parentemail,
    subject: "FEE RECEIPT/ACKNOWLEDGEMENT",
     attachment:
@@ -1305,7 +1305,7 @@ app.post('/payfee-card',  urlencodedParser,function (req, res)
     var install1date;
     var paidstatus;
     var status;
-    if(req.query.paytype=="Cash")
+    if(req.query.paytype=="Cash"||req.query.paytype=="Transfer")
     {
          paidstatus="paid";
     }
@@ -2092,17 +2092,19 @@ app.post('/checkchequedetails',  urlencodedParser,function (req, res)
   console.log('come');
   var schoolx={"school_id":req.query.schol};
   var startdate=req.query.fromdate;
-  var todate=req.query.todate;
+  var todate=req.query.todate1;
 console.log(startdate);
 console.log(todate);
-       connection.query('SELECT * from cheque_details where cheque_status="processing" and ? and cheque_date between ? and ?',[schoolx,startdate,todate],
-        function(err, rows)
+var qur="SELECT * from cheque_details where cheque_status='processing' and school_id='"+req.query.schol+"' and STR_TO_DATE(cheque_date,'%m/%d/%Y') between  STR_TO_DATE('"+req.query.fromdate+"','%m/%d/%Y') and STR_TO_DATE('"+req.query.todate1+"','%m/%d/%Y')";
+       connection.query(qur,
+        
+    function(err, rows)
         {
     if(!err)
     {
     if(rows.length>0)
     {
-      console.log(rows);
+      console.log(rows.length);
       res.status(200).json({'returnval': rows});
     }
     else
@@ -2111,9 +2113,10 @@ console.log(todate);
       res.status(200).json({'returnval': ''});
     }
   }
+  
 });
   });
-app.post('/checkchequebyname',  urlencodedParser,function (req, res)
+app.post('/checkchequebyname',  urlencodedParser,function (req, res) 
 {
   console.log('come');
   var schoolx={"school_id":req.query.schol};
@@ -3135,7 +3138,7 @@ app.post('/geteditcheque',  urlencodedParser,function (req, res)
  var schoolx={"school_id":req.query.schol};
  //console.log(id);
 
-      connection.query('Select * from cheque_details where student_id=? and ?',[id,schoolx],
+      connection.query('Select * from cheque_details where cheque_status="processing" and student_id=? and ?',[id,schoolx],
         function(err, rows){
     if(!err){
       if(rows.length>0)
