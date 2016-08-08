@@ -83,10 +83,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if(len>1){
           this.querySelector('paper-listbox').style.visibility='visible';
           var backsubval=(((this.value).substring(0,(len-1))).trim()).toUpperCase();
-          for(var i=0;i<namearr.length;i++)
+           for(var i=0;i<namearr.length;i++)
           {
-            var subval=((namearr[i].student_name).trim()).substring(0,backsubval.length);
-            if((subval).toUpperCase()==(backsubval).toUpperCase())
+            //var subval=((namearr[i].student_name).trim()).substring(0,backsubval.length);
+            if((namearr[i].student_name).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
             {
               var obj={"itemdes":"","itemid":""};
               obj.itemdes=namearr[i].student_name;
@@ -106,9 +106,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.itemval = this.value +String.fromCharCode((e.keyCode));
         if(this.itemval.length>0)
         {
-          for(var i=0;i<namearr.length;i++){
+           for(var i=0;i<namearr.length;i++)
+          {
+
             var subval=((namearr[i].student_name).trim()).substring(0,this.itemval.length);
-            if((subval).toUpperCase()==(this.itemval).toUpperCase()){
+          //var subval=((namearr[i].student_name).trim()).substring(0,backsubval.length);
+            if((namearr[i].student_name).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
+            {
               var obj={"itemdes":"","itemid":""};
               obj.itemdes=namearr[i].student_name;
               obj.itemid=namearr[i].student_id;

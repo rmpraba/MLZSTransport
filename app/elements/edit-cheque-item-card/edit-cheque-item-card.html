@@ -67,6 +67,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         //alert('edit1'+this.chequedate1+''+this.bankname1+''+this.chequenum1+''+this.prevcheque+''+this.stuid);
         this.$.service.Fneditcheque(this.chequenum1,this.bankname1,this.chequedate1,this.prevcheque,this.stuid);
         alert("Update the cheque details Successfully");
+        alert(this.stuid);
       },
       deletecheque:function()
       {

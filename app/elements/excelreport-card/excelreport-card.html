@@ -17,7 +17,7 @@
         display: block;
       }
       .headtabs{
-        width: 90% !important;
+        width: 90% !important;  
         margin: 0 !important;
       }
       .total-collection{
@@ -70,7 +70,7 @@
       </div>
       <div class="intallment drop-down">
         <paper-dropdown-menu label="Installment Type" id="installment" required error-message="select the Installment Type">
-          <paper-menu id="tripmenu" class="dropdown-content" on-iron-select="installment" valueattr="value"  >
+          <paper-menu id="instalmenu" class="dropdown-content" on-iron-select="installment" valueattr="value"  >
             <paper-item value="1">Installment 1</paper-item>
             <paper-item value="2">Installment 2</paper-item>
           </paper-menu>
@@ -78,7 +78,7 @@
       </div>
       <div class="modeofpayment drop-down">
         <paper-dropdown-menu label="Mode of Payment" id="modeofpayment" required error-message="select the mode of payment">
-          <paper-menu id="tripmenu" class="dropdown-content" on-iron-select="modeofpayment" valueattr="value"  >
+          <paper-menu id="modemenu" class="dropdown-content" on-iron-select="modeofpayment" valueattr="value"  >
             <paper-item value="Cash">Cash</paper-item>
             <paper-item value="Cheque">Cheque</paper-item>
           </paper-menu>
@@ -99,11 +99,12 @@
       </div>-->
 
       <table id="receiptTable1" border="1">
-      <tr><th>Student ID</th><th>Student Name</th><th>Parent Name</th><th>Section</th><th>Receipt Number</th><th>Receipt Date</th><th>Amount</th></tr>
+      <tr><th>Student ID</th><th>Student Name</th><th>Parent Name</th><th>Section</th><th>Receipt Number</th><th>Receipt Date</th><th>Amount</th><th>Fine</th></tr>
       <template  is="dom-repeat" items="{{excelcasharr}}" as="view">
         <!-- <excelreportcash-card studentid="{{view.student_id}}" studentname="{{view.student_name}}" standard="{{view.standard}}" section ="{{view.section}}" receiptno="{{view.receipt_no}}" feepaid="{{view.installment_1}}"></excelreportcash-card> -->
         <tr><td>{{view.student_id}}</td><td>{{view.student_name}}</td><td>{{view.parent_name}}</td><td>{{view.grade}}</td>
-        <td>{{view.receipt_no}}</td><td>{{view.installment_date}}</td><td>{{view.installment_1}}</td></tr>
+        <td>{{view.receipt_no}}</td><td>{{view.installment_date}}</td><td>{{view.installment_1}}</td>
+        <td>{{view.fine}}</td></tr>
       </template>
       </table>
       <input type="button" id="btn1" onclick="tableToExcel('receiptTable1', 'Cash report')" value="Export to Excel">
@@ -124,12 +125,12 @@
       </div>-->
       <table id="receiptTable2" border="1">
       <tr><th>Student ID</th><th>Student Name</th><th>Parent Name</th><th>Section</th><th>Receipt No</th><th>Cheque No</th>
-      <th>Bank Name</th><th>Cheque Date</th><th>Created Date</th><th>Amount</th>
+      <th>Bank Name</th><th>Cheque Date</th><th>Created Date</th><th>Amount</th><th>Fine</th>
       </tr>
       <template  is="dom-repeat" items="{{excelchequearr}}" as="views">
         <!--<feereportscheque-item-card studentid="{{views.student_id}}" studentname="{{views.student_name}}" standard="{{views.standard}}" section="{{views.section}}" bankname="{{views.bank_name}}" chequeno="{{views.cheque_no}}" createddate="{{views.created_date}}" chequedate="{{views.cheque_date}}" receiptno="{{views.receipt_no}}" feepaid="{{views.installment_1}}" fees="{{views.fees}}"></feereportscheque-item-card>-->
         <tr><td>{{views.student_id}}</td><td>{{views.student_name}}</td><td>{{views.parent_name}}</td><td>{{views.grade}}</td><td>{{views.receipt_no}}</td>
-        <td>{{views.cheque_no}}</td><td>{{views.bank_name}}</td><td>{{views.cheque_date}}</td><td>{{views.created_date}}</td><td>{{views.installment_1}}</td></tr>
+        <td>{{views.cheque_no}}</td><td>{{views.bank_name}}</td><td>{{views.cheque_date}}</td><td>{{views.created_date}}</td><td>{{views.installment_1}}</td><td>{{view.fine}}</td></tr>
       </template>
       </table>
       <input type="button" id="btn2" onclick="tableToExcel('receiptTable2', 'Cheque Report')" value="Export to Excel">
@@ -175,9 +176,15 @@ var tableToExcel = (function() {
         this.hide2=true;
       },
 
+FnRefresh:function()
+{
+document.querySelector('#modemenu').selected=-1;
+document.querySelector('#instalmenu').selected=-1;
 
+},
     installment:function(e){
       installment = (e.target.selectedItem.textContent).trim();
+      document.querySelector('#modemenu').selected=-1;
     },
     modeofpayment:function(e){
       date = localStorage.getItem("localsess_curr_date");

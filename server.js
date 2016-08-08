@@ -3708,7 +3708,7 @@ app.post('/valuesinsta1cheque',  urlencodedParser,function (req, res)
 
   var type={"installtype":'installment1'};
   var schoolx=req.query.schol;
-  var qur="select distinct f.student_id, p.parent_name, d.student_name, f.receipt_no1, f.fees,f.installment_1,f.installment_1Date, c.cheque_no, c.bank_name, c.cheque_date,cd.class,cd.section from student_fee f join student_details d on f.student_id = d.id join cheque_details c on (f.student_id = c.student_id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where  installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cheque' and installtype='installment1' and c.cheque_status not in('bounce') and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and c.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
+  var qur="select distinct f.student_id, p.parent_name, d.student_name, f.receipt_no1, f.fees,f.install1_fine,f.installment_1,f.installment_1Date, c.cheque_no, c.bank_name, c.cheque_date,cd.class,cd.section from student_fee f join student_details d on f.student_id = d.id join cheque_details c on (f.student_id = c.student_id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where  installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cheque' and installtype='installment1' and c.cheque_status not in('bounce') and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and c.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
        console.log(qur);
       //connection.query('select f.student_id, p.parent_name, d.student_name, f.receipt_no1, f.fees,f.installment_1, c.cheque_no, c.bank_name, c.cheque_date,cd.class,cd.section from student_fee f inner join student_details d on f.student_id = d.id inner join cheque_details c on (f.student_id = c.student_id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where ? between and ? and ? and ? and d.school_id=?',[fromdate,date, mode,type,schoolx],
 
@@ -3723,7 +3723,7 @@ app.post('/valuesinsta1cheque',  urlencodedParser,function (req, res)
 
                   //var obj={"grade":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"",};
 
-                  var obj={"created_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","standard":"","section":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"",};
+                  var obj={"created_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","standard":"","section":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"","fine":""};
                   obj.parent_name=rows[i].parent_name;
                   obj.student_id=rows[i].student_id;
                   obj.student_name=rows[i].student_name;
@@ -3735,6 +3735,7 @@ app.post('/valuesinsta1cheque',  urlencodedParser,function (req, res)
                   obj.cheque_no=rows[i].cheque_no;
                   obj.bank_name=rows[i].bank_name;
                   obj.cheque_date=rows[i].cheque_date;
+                  obj.fine=rows[i].install1_fine;
                   obj.created_date=rows[i].installment_1Date;
                   // obj.created_date=(rows[i].installment_1Date).getDate()+"-"+((rows[i].installment_1Date).getMonth()+1)+"-"+(rows[i].installment_1Date).getFullYear();
                   obj.grade=rows[i].class+" / "+rows[i].section;
@@ -3766,8 +3767,8 @@ app.post('/valuesinsta2cheque',  urlencodedParser,function (req, res)
 
   // var installtype = {"installtype":"installment2"}
       // connection.query("Select f.student_id,f.receipt_no2,f.fees,f.installment_2Date,f.installment_2,(select d.student_name from student_details d where d.id=f.student_id and f.school_id='"+req.query.schol+"') as name,(select (select z.class from class_details z where z.id=d.class_id and d.school_id='"+req.query.schol+"') from student_details d where d.id=f.student_id and f.school_id='"+req.query.schol+"')as standard,(select (select z.section from class_details z where z.id=d.class_id and d.school_id='"+req.query.schol+"') from student_details d where d.id=f.student_id and f.school_id='"+req.query.schol+"')as section, c.cheque_date, c.bank_name, c.cheque_no from student_fee f join cheque_details c on f.student_id = c.student_id where (? and ? and ?)",[date, mode,installtype],
-  var qur="select distinct f.student_id, p.parent_name, d.student_name, f.receipt_no2, f.fees,f.installment_2,f.installment_2Date, c.cheque_no, c.bank_name, c.cheque_date,cd.class,cd.section from student_fee f join student_details d on f.student_id = d.id join cheque_details c on (f.student_id = c.student_id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where  installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment2='Cheque' and installtype='installment2' and c.cheque_status not in('bounce') and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"' and c.school_id='"+schoolx+"'";
-        console.log(qur);
+  var qur="select distinct f.student_id, p.parent_name, d.student_name, f.receipt_no2, f.fees,f.install2_fine,f.installment_2,f.installment_2Date, c.cheque_no, c.bank_name, c.cheque_date,cd.class,cd.section from student_fee f join student_details d on f.student_id = d.id join cheque_details c on (f.student_id = c.student_id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where  installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment2='Cheque' and installtype='installment2' and c.cheque_status not in('bounce') and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"' and c.school_id='"+schoolx+"'";
+        //console.log(qur);
         connection.query(qur,
         function(err, rows){
           var itemarr = new Array();
@@ -3777,7 +3778,7 @@ app.post('/valuesinsta2cheque',  urlencodedParser,function (req, res)
 
                   //var obj={"grade":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"",};
 
-                  var obj={"created_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","standard":"","section":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"","created_date":""};
+                  var obj={"created_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","standard":"","section":"","installment_1":"","cheque_no":"","bank_name":"","cheque_date":"","created_date":"","fine":""};
 
 
             obj.parent_name=rows[i].parent_name;
@@ -3788,6 +3789,7 @@ app.post('/valuesinsta2cheque',  urlencodedParser,function (req, res)
                   obj.standard = rows[i].standard;
                   obj.section = rows[i].section;
                   obj.installment_1=rows[i].installment_2;
+                  obj.fine=rows[i].install2_fine;
                   obj.cheque_no=rows[i].cheque_no;
                   obj.bank_name=rows[i].bank_name;
                   obj.created_date=rows[i].installment_2Date;
@@ -3819,9 +3821,9 @@ app.post('/valuesinsta2cash',  urlencodedParser,function (req, res)
   var mode= {"modeofpayment2":"Cash"};
   var type={"installtype":'installment2'};
   var schoolx=req.query.schol;
-  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.installment_2,f.installment_2Date,cd.class,cd.section from student_fee f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment2='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
+  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.installment_2,f.install2_fine,f.installment_2Date,cd.class,cd.section from student_fee f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"'  and modeofpayment2='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
      // connection.query('Select f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.installment_2,cd.class,cd.section from student_fee f left join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where ? between and ? and ? and d.school_id=?',[fromdate,date, mode,schoolx],
-
+console.log(qur);
   // var date={"installment_2Date":req.query.dates};
   // var mode= {"modeofpayment2":"Cash"};
   // var schol=req.query.schol;
@@ -3841,7 +3843,7 @@ app.post('/valuesinsta2cash',  urlencodedParser,function (req, res)
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_1;*/
 
-                  var obj={"installment_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":""};
+                  var obj={"installment_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":"","fine":""};
                   obj.parent_name=rows[i].parent_name;
                   obj.student_id=rows[i].student_id;
                   obj.student_name=rows[i].student_name;
@@ -3849,11 +3851,12 @@ app.post('/valuesinsta2cash',  urlencodedParser,function (req, res)
                   obj.fees=rows[i].fees;
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_2;
+                  obj.fine=rows[i].install2_fine;
                   obj.installment_date=rows[i].installment_2Date;
                   // obj.installment_date=(rows[i].installment_2Date).getDate()+"-"+((rows[i].installment_2Date).getMonth()+1)+"-"+(rows[i].installment_2Date).getFullYear();
                   itemarr.push(obj);
               }
-                //console.log(JSON.stringify(itemarr));
+                console.log(JSON.stringify(itemarr));
           res.status(200).json({'returnval': itemarr});
             } else {
                 res.status(200).json({'returnval': ''});
@@ -3872,7 +3875,7 @@ app.post('/zonechangeinsta2cash',  urlencodedParser,function (req, res)
   var mode= {"modeofpayment2":"Cash"};
   var type={"installtype":'installment2'};
   var schoolx=req.query.schol;
-  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.installment_2,f.installment_2Date,cd.class,cd.section from student_zonechange f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment2='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
+  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.install2_fine,f.installment_2,f.installment_2Date,cd.class,cd.section from student_zonechange f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_2Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment2='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
      // connection.query('Select f.student_id, p.parent_name,d.student_name, f.receipt_no2, f.fees,f.installment_2,cd.class,cd.section from student_fee f left join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where ? between and ? and ? and d.school_id=?',[fromdate,date, mode,schoolx],
 
   // var date={"installment_2Date":req.query.dates};
@@ -3894,7 +3897,7 @@ app.post('/zonechangeinsta2cash',  urlencodedParser,function (req, res)
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_1;*/
 
-                  var obj={"installment_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":""};
+                  var obj={"installment_date":"","parent_name":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":"","fine":""};
                   obj.parent_name=rows[i].parent_name;
                   obj.student_id=rows[i].student_id;
                   obj.student_name=rows[i].student_name;
@@ -3902,6 +3905,7 @@ app.post('/zonechangeinsta2cash',  urlencodedParser,function (req, res)
                   obj.fees=rows[i].fees;
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_2;
+                  obj.fine=rows[i].install2_fine;
                   obj.installment_date=rows[i].installment_2Date;
                   // obj.installment_date=(rows[i].installment_2Date).getDate()+"-"+((rows[i].installment_2Date).getMonth()+1)+"-"+(rows[i].installment_2Date).getFullYear();
                   itemarr.push(obj);
@@ -3929,7 +3933,7 @@ app.post('/valuesinsta1cash',  urlencodedParser,function (req, res)
   // var type={"installtype":'installment2'};
   var schoolx=req.query.schol;
   //    connection.query('Select f.student_id,p.parent_name, d.student_name, f.receipt_no1, f.fees,f.installment_1,cd.class,cd.section from student_fee f left join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where ? between and ? and ? and d.school_id=?',[fromdate,date, mode,schoolx],
-  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no1, f.fees,f.installment_1,f.installment_1Date,cd.class,cd.section from student_fee f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
+  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no1, f.fees,f.install1_fine,f.installment_1,f.installment_1Date,cd.class,cd.section from student_fee f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
    console.log(qur);
    var schol=req.query.schol;
       // connection.query("Select student_id,receipt_no1,fees,installment_1,(select student_name from student_details where id=student_id and school_id='"+req.query.schol+"') as name,(select (select class from class_details where id=class_id and school_id='"+req.query.schol+"') from student_details where id=student_id and school_id='"+req.query.schol+"')as standard,(select (select section from class_details where id=class_id and school_id='"+req.query.schol+"') from student_details where id=student_id and school_id='"+req.query.schol+"')as section from student_fee  where (? and ?) and school_id='"+req.query.schol+"'",[date, mode],
@@ -3948,7 +3952,7 @@ app.post('/valuesinsta1cash',  urlencodedParser,function (req, res)
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_2;*/
 
-                 var obj={"parent_name":"","installment_date":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":""};
+                 var obj={"parent_name":"","installment_date":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":"","fine":""};
                   obj.parent_name=rows[i].parent_name;
                   obj.student_id=rows[i].student_id;
                   obj.student_name=rows[i].student_name;
@@ -3956,6 +3960,7 @@ app.post('/valuesinsta1cash',  urlencodedParser,function (req, res)
                   obj.fees=rows[i].fees;
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_1;
+                  obj.fine=rows[i].install1_fine;
                   obj.installment_date=rows[i].installment_1Date;
                   // obj.installment_date=(rows[i].installment_1Date).getDate()+"-"+((rows[i].installment_1Date).getMonth()+1)+"-"+(rows[i].installment_1Date).getFullYear();
                   itemarr.push(obj);
@@ -3980,7 +3985,7 @@ app.post('/zonechangeinsta1cash',  urlencodedParser,function (req, res)
   // var type={"installtype":'installment2'};
   var schoolx=req.query.schol;
   //    connection.query('Select f.student_id,p.parent_name, d.student_name, f.receipt_no1, f.fees,f.installment_1,cd.class,cd.section from student_fee f left join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where ? between and ? and ? and d.school_id=?',[fromdate,date, mode,schoolx],
-  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no1, f.fees,f.installment_1,f.installment_1Date,cd.class,cd.section from student_zonechange f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
+  var qur="Select distinct f.student_id, p.parent_name,d.student_name, f.receipt_no1, f.fees,f.install1_fine,f.installment_1,f.installment_1Date,cd.class,cd.section from student_zonechange f join student_details d on (f.student_id=d.id) join class_details cd on (cd.id=d.class_id) join parent p on p.student_id=d.id where installment_1Date between '"+req.query.fromdate+"' and '"+req.query.dates+"' and modeofpayment1='Cash' and d.school_id='"+schoolx+"' and p.school_id='"+schoolx+"' and f.school_id='"+schoolx+"' and cd.school_id='"+schoolx+"'";
    console.log(qur);
    var schol=req.query.schol;
       // connection.query("Select student_id,receipt_no1,fees,installment_1,(select student_name from student_details where id=student_id and school_id='"+req.query.schol+"') as name,(select (select class from class_details where id=class_id and school_id='"+req.query.schol+"') from student_details where id=student_id and school_id='"+req.query.schol+"')as standard,(select (select section from class_details where id=class_id and school_id='"+req.query.schol+"') from student_details where id=student_id and school_id='"+req.query.schol+"')as section from student_fee  where (? and ?) and school_id='"+req.query.schol+"'",[date, mode],
@@ -3999,7 +4004,7 @@ app.post('/zonechangeinsta1cash',  urlencodedParser,function (req, res)
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_2;*/
 
-                 var obj={"parent_name":"","installment_date":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":""};
+                 var obj={"parent_name":"","installment_date":"","student_id":"","student_name":"","receipt_no":"","fees":"","installment_1":"","grade":"","fine":""};
                   obj.parent_name=rows[i].parent_name;
                   obj.student_id=rows[i].student_id;
                   obj.student_name=rows[i].student_name;
@@ -4007,6 +4012,7 @@ app.post('/zonechangeinsta1cash',  urlencodedParser,function (req, res)
                   obj.fees=rows[i].fees;
                   obj.grade=rows[i].class+" / "+rows[i].section;
                   obj.installment_1=rows[i].installment_1;
+                  obj.fine=rows[i].install1_fine;
                   obj.installment_date=rows[i].installment_1Date;
                   // obj.installment_date=(rows[i].installment_1Date).getDate()+"-"+((rows[i].installment_1Date).getMonth()+1)+"-"+(rows[i].installment_1Date).getFullYear();
                   itemarr.push(obj);
