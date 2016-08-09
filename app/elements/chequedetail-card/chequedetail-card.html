@@ -233,7 +233,8 @@ changeHandler:function(e){
           this.$.button.hidden=false;
           this.studid= e1.target.selectedItem.value;
           var studname = (e1.target.selectedItem.textContent).trim();
-          alert(this.studname);
+          this.value=studname;
+          //alert(this.studname);
           this.$.service.checkchequebyname(studname);
           this.itemArray=[];
           this.querySelector('paper-listbox').selected=-1;

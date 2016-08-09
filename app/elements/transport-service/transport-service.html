@@ -3303,6 +3303,10 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
         this.$.updateeditchequeajax.generateRequest();
 
     },
+    updateeditchequeResponse:function(e)
+    {
+          document.querySelector('editcheque-card').FnClear();
+    },
     Fndeletecheque:function(cheqno,studid,instaltype)
     {
 
@@ -3316,6 +3320,10 @@ document.querySelector('cqreceipt-card').receiptarr=recarr1;
         //alert(JSON.stringify(obj));
         this.$.deletechequeajax.generateRequest();
 
+    },
+    deletechequeResponse:function(e)
+    {
+        document.querySelector('editcheque-card').FnClear();
     }
     });
  })();
