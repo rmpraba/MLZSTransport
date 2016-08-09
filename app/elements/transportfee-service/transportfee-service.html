@@ -432,6 +432,20 @@
       debounce-duration="300"
     >
     </iron-ajax>
+
+
+
+     <iron-ajax
+      method="post"
+      id="transportcancelajax"
+      url="{{transportcancelurl}}"
+      params="{{transportcancelparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="transportcancelResponse"
+      debounce-duration="300"
+    >
+    </iron-ajax>
     </template>
 
      <script>
@@ -2182,6 +2196,20 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
       {
         var nameitem=e.detail.response.returnval;
         document.querySelector('discountstudent-card').autocompletename(nameitem);
+      },
+      transportcanceldetail:function()
+      {
+       this.transportcancelurl=sessionStorage.getItem("addrinfo")+"/transportcancelreport";
+       var obj={"schol":""}
+      obj.schol=sessionStorage.getItem("sch");
+      this.transportcancelparam=obj;
+       this.$.transportcancelajax.generateRequest(); 
+      },
+      transportcancelResponse:function(e)
+      {
+        var cancelarr=e.detail.response.returnval;
+        //alert(JSON.stringify(cancelarr));
+        document.querySelector('transportcancel-report').canceltransarr=cancelarr;
       }
     });
  })();

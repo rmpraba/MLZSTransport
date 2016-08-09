@@ -49,6 +49,8 @@
 <link rel="import" href="../staffallocation-card/staffallocation-card.html">
 <link rel="import" href="../staffreport-card/staffreport-card.html">
 <link rel="import" href="../routestudent-card/routestudent-card.html">
+<link rel="import" href="../transportcancel-report/transportcancel-report.html">
+
 <link rel="stylesheet" type="text/css" href="../styles/styles.css">
   <dom-module id="transport-app">
   <template>
@@ -225,6 +227,9 @@
           </section>
           <section data-category="staffroute">
           <staffreport-card></staffreport-card>
+          </section>
+           <section data-category="tansportcanceldetail">
+          <transportcancel-report></transportcancel-report>
           </section>
           </iron-pages>
        </div>
@@ -619,6 +624,12 @@
       document.querySelector('bouncecheque-card').ready();
       
     }
+     if(currpage=="tansportcanceldetail")
+     {
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("financemanager","Finance Manager");
+     }
+  
     if(currpage=="discount"){
       document.querySelector('app-card').setPage("transportapp");
       document.querySelector('transport-app').setPage("financemanager","Finance Manager");

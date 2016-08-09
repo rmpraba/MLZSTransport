@@ -2160,6 +2160,29 @@ app.post('/bouncechequedetails',  urlencodedParser,function (req, res)
   }
 });
   });
+
+
+app.post('/transportcancelreport',  urlencodedParser,function (req, res)
+{
+  var schoolx={"school_id":req.query.schol};
+       connection.query('SELECT * from cancellation where ?',[schoolx],
+        function(err, rows)
+        {
+    if(!err)
+    {
+    if(rows.length>0)
+    {
+      res.status(200).json({'returnval': rows});
+    }
+    else
+    {
+      console.log(err);
+      res.status(200).json({'returnval': ''});
+    }
+  }
+});
+  });
+
 app.post('/updatechequedetail',  urlencodedParser,function (req, res)
 {
   var cstatus={"cheque_status":req.query.chequestatus};
