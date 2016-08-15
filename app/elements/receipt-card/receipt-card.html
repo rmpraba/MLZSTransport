@@ -286,19 +286,19 @@ var install2=[];
       obj.session=this.receiptarr[0].session;
       obj.installtype=this.receiptarr[0].installtype;
       obj.installfee=this.receiptarr[0].installfee;
-      if(this.flag==1)
-      obj.parentemail=this.email;
-      else
+     // if(this.flag==1)
+     // obj.parentemail=this.receiptarr[0].email;
+     // else
        obj.parentemail=this.parentemail;
    obj.title=this.receiptarr[0].title;
    obj.paymode=this.receiptarr[0].paytype;
    //alert(JSON.stringify(obj.paymode))
 
-   obj.word=this.feeinword;
+   obj.word=this.receiptarr[0].feeinword;
    if(this.receiptarr[0].paytype!='Cash'){
-   obj.chequeno=this.cheqno;
-   obj.chequedate=this.cqdate;
-   obj.bank=this.bank;
+   obj.chequeno=this.receiptarr[0].cheno;
+   obj.chequedate=this.receiptarr[0].cqdate;
+   obj.bank=this.receiptarr[0].bknm;
    }
    else{
    obj.chequeno="NA";
@@ -326,8 +326,8 @@ var install2=[];
      obj1.installfee=install2[0].installfee;
      obj1.title=install2[0].title;
      obj1.paymode=install2[0].paytype;
-     obj1.word=this.feeinword;
-
+     obj1.word=install2[0].feeinword;
+obj1.parentemail=this.parentemail;
      this.mailsendparam=obj1;
      this.mailsendurl=sessionStorage.getItem("addrinfo")+"/mailsend";
      this.$.mailsendajax.generateRequest();
@@ -510,7 +510,9 @@ var install2=[];
 
 },
 
- email:function(e){
+ email:function()
+ {
+  alert();
   this.stud=this.receiptarr[0].studname;
   alert(this.stud);
   this.$.emaildialog.open();

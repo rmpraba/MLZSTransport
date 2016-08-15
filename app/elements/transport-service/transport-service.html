@@ -2149,6 +2149,7 @@ getfeechequeResponse:function(e)
 //alert(JSON.stringify(e.detail.response.returnval));
 var feezxc=feedet[0].installment_1;
 var fineamt=feedet[0].install1_fine;
+
   document.querySelector('transport-app').setPage("receipt","Receipt");
 var word=document.querySelector('transport-service').convertrs(feezxc,fineamt);
 //alert(installment_1Date);
@@ -2207,6 +2208,7 @@ recobj.feeinword=word;
 document.querySelector('receipt-card').parent=feeparent[0].parentname;
 //recobj.parent=feeparent[0].parentname;
 recobj.email=feeparent[0].parentmail;
+document.querySelector('receipt-card').parentemail=feeparent[0].parentmail;
 document.querySelector('receipt-card').schoolname=sessionStorage.getItem("schoolname");
 document.querySelector('receipt-card').schooladdr=sessionStorage.getItem("schooladdr");
 recobj.title=title;
@@ -2234,6 +2236,7 @@ recobj.title=title;
             feecheque.splice(j,1);
             //cheqarr.push(cqobj);
             document.querySelector('receipt-card').chequearrayview();
+            document.querySelector('receipt-card').parentemail=feeparent[0].parentmail;
             //document.querySelector('receipt-card').downloadpdf(recstudid);
           }
           }
@@ -2497,6 +2500,7 @@ recarr1.push(zrecobj1);
 //alert(JSON.stringify(recarr1));
 
 document.querySelector('cqreceipt-card').receiptarr=recarr1;
+ document.querySelector('receipt-card').getinstall2(recarr1);
  var pt1=feedet[0].modeofpayment2;
        if(pt1=='Cheque')
        {

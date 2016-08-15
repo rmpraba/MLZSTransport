@@ -34,9 +34,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    
     <paper-checkbox style="margin: 1% 0 0 -8%;" id="{{installtype}}"  value="{{studname}}" class="checkbox" disabled$="{{paidstatus}}" checked on-change="payinstall"></paper-checkbox>
    <div class="fieldsmall" style="width: 18%;margin-left: 4%;"><paper-item >{{installtype}}</paper-item></div>
-   <div class="fieldsmall" style="width: 12%;margin-left:15%;"><paper-item >{{installamt}}</paper-item></div>
-   <div class="fieldsmall" style="width: 8%;margin-left:13%;"><paper-item >{{fineamount}}</paper-item></div>
-    <div class="drop-down" style="margin-left:15%; width: 100%;">
+   <div class="fieldsmall" style="width: 12%;margin-left:10%;"><paper-item >{{installamt}}</paper-item></div>
+
+   <div class="fieldsmall" style="width: 8%;margin-left:10%;"><paper-item >{{fineamount}}</paper-item></div>
+    <div class="drop-down" style="margin-left:1%; width: 30%;">
             <paper-dropdown-menu disabled$="{{enable}}" hidden$="{{hidden2}}" id="{{paydate}}"   label="---Select the Mode of Payment---">
                 <paper-menu class="dropdown-content" id="paymodemenu" on-iron-select="payment" valueattr="value" >
                    <paper-item value="Cheque" id="{{installtype}}">Cheque</paper-item>
@@ -45,8 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </paper-menu>
             </paper-dropdown-menu>
           </div>
-    <div class="fieldsmall" style="width: 10%;margin-left:0%;position: absolute; left: 80%;"><paper-item id="installsdate" hidden$="{{hidden1}}">{{paymode}}</paper-item></div>
-           
+    <div class="fieldsmall" style="width: 1%;margin-left:0%;position: absolute; left: 60%;"><paper-item id="installsdate" hidden$="{{hidden1}}">{{paymode}}</paper-item></div>
+     <div class="fieldsmall" style="width: 1%;margin-left:0%;position: absolute; left: 90%;"><paper-item id="installsdate" hidden$="{{hidden1}}">{{paydate}}</paper-item></div>
+            <div>
+ <receipt-datepicker  hidden$="{{hidden2}}"></receipt-datepicker></div>
     
             <template is="dom-if" if="{{checkinstall(paidstatus)}}">
             </template>

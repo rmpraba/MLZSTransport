@@ -395,7 +395,7 @@
          params="{{getreceiptinfoparam}}"
         handle-as="json"
         content-type="application/json"
-        on-response="getreceiptinfoResponse"
+        on-response="getreceiptinfoResponse">
           </iron-ajax>
   <iron-ajax
         method="post"
@@ -631,7 +631,9 @@ var newreceiptsequence;
          ackseq=e.detail.response.returnval[0].ackseq;
          //var  instaldate=new Date();
          //alert(instaldate);
-         var condate = new Date();
+         var recdate=localStorage.getItem("localsess_receipt_date");
+         var condate = new Date(recdate);
+        // alert(condate);
         if(condate.getDate()<10)
         {
             insdate="0"+condate.getDate();
@@ -701,6 +703,7 @@ var newreceiptsequence;
      getreceiptinfoResponse:function(e){
         dadname=e.detail.response.returnval[0].parent_name;
         dademail=e.detail.response.returnval[0].email;
+        //alert(dademail);
         document.querySelector('receipt-card').parent=dadname;
         document.querySelector('receipt-card').parentemail=dademail;
         document.querySelector('cqreceipt-card').parent=dadname;
@@ -714,8 +717,9 @@ var newreceiptsequence;
       var recarr=[];
       var cheqarr=[];
       var  getstu=e.detail.response.returnval;
+      var recdate=localStorage.getItem("localsess_receipt_date");
       //alert(JSON.stringify(getstu));
-      var dt=new Date();
+      var dt=new Date(recdate);
       //var todate=dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear();
       var yr=dt.getFullYear()+' - '+(dt.getFullYear()+1);
       var m_names = new Array("Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep","Oct", "Nov", "Dec");
@@ -766,7 +770,8 @@ recobj.title=title;
 document.querySelector('receipt-card').schoolname=sessionStorage.getItem("schoolname");
 document.querySelector('receipt-card').schooladdr=sessionStorage.getItem("schooladdr");
         var pt=receiptcreate[i].paytype;
-       if(pt=='Cheque'||pt=='Transfer'){
+       if(pt=='Cheque'||pt=='Transfer')
+       {
         for(var j=0;j<chequearr.length;j++)
         {
           if(chequearr[j].installtype==receiptcreate[i].instype)
@@ -848,6 +853,7 @@ recobj1.title=title;
           }
           }
         }
+        
         recarr1.push(recobj1);
         document.querySelector('cqreceipt-card').receiptarr=recarr1;
       document.querySelector('receipt-card').getinstall2(recarr1);

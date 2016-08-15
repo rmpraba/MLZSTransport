@@ -34,6 +34,10 @@
   {
     padding-right: 10%;
   }
+  .collapse1
+  {
+     @apply(--layout-horizontal);     
+  }
   </style>
       
       
@@ -58,12 +62,13 @@
 <paper-checkbox style="margin-left: 3%" id="instal" class="checkbox" on-change="installHandler1">INSTALLMENT</paper-checkbox></div>
 </div>
 <div class="collapse1">
-          <paper-tabs>
-            <paper-tab>Installment Type</paper-tab>
-            <paper-tab>Amount</paper-tab>
-             <paper-tab>Fine</paper-tab>
-            <paper-tab>Mode of Payment</paper-tab>
-          </paper-tabs>
+          
+            <div style="width: 18%;margin-left: 4%;">Installment Type</div>
+            <div style="width: 12%;margin-left:10%;">Amount</div>
+             <div style="width: 8%;margin-left:10%;">Fine</div>
+            <div style="margin-left:1%; width: 30%;">Mode of Payment</div>
+            <div style="width: 30%;margin-left:0%;position: absolute; left: 90%;">Receipt Date</div>
+          
       </div>
       <div style="margin-left:12%;"> 
       <template  is="dom-repeat" items="{{installmentarr}}" as="view">
