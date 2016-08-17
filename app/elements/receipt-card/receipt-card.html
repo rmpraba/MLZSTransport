@@ -193,7 +193,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <paper-button id="send" on-click="changemail">send</paper-button>
     </paper-dialog>
   <div class="row-buttons">
-    <paper-button id="pdf" style="height: 34px !important;" on-click="downloadpdf">PDF</paper-button>
+    <paper-button id="pdf"   style="height: 34px  !important;" on-click="downloadpdf">PDF</paper-button>
     <paper-button id="email" style="height: 34px  !important;" on-click="email">Email</paper-button>
     <paper-button id="print" style="height: 34px  !important;" on-click="print">Print</paper-button>
   </div>
@@ -272,11 +272,12 @@ var install2=[];
         this.cqdate="";
         this.bank="";
       },
-      changemail:function(){
-        this.flag=1;
-        this.email=this.parentemail;
+      changemail:function()
+      {
+        //this.flag=1;
+        //this.email=this.parentemail;
 
-        this.$.emaildialog.close();
+    this.$.emaildialog.close();  
           var obj={"chequeno":"","chequedate":"","bank":"","receiptno":"","today":"","studname":"","classname":"","parentname":"","session":"","installtype":"","installfee":"","parentemail":"","paymode":"","word":"","title":""};
       obj.receiptno=this.receiptarr[0].receiptno;
       obj.today=this.receiptarr[0].today;
@@ -295,22 +296,24 @@ var install2=[];
    //alert(JSON.stringify(obj.paymode))
 
    obj.word=this.receiptarr[0].feeinword;
-   if(this.receiptarr[0].paytype!='Cash'){
+   if(this.receiptarr[0].paytype!='Cash')
+   {
    obj.chequeno=this.receiptarr[0].cheno;
    obj.chequedate=this.receiptarr[0].cqdate;
    obj.bank=this.receiptarr[0].bknm;
    }
-   else{
+   else
+   {
    obj.chequeno="NA";
    obj.chequedate="NA";
    obj.bank="NA";
    }
-
+//alert(JSON.stringify(obj));
    this.mailsendparam=obj;
    this.mailsendurl=sessionStorage.getItem("addrinfo")+"/mailsend";
    this.$.mailsendajax.generateRequest();
 
-   installarr.push(obj);
+   //installarr.push(obj);
    if(install2.length>0){
      var obj1={"chequeno":"","chequedate":"","bank":"","receiptno":"","today":"","studname":"","classname":"","parentname":"","session":"","installtype":"","installfee":"","parentemail":"","paymode":"","word":"","title":""};
         obj1.chequeno=install2[0].cheqno;
@@ -334,6 +337,7 @@ obj1.parentemail=this.parentemail;
      installarr.push(obj1);
 
 }
+//alert(JSON.stringify(obj1));
       },
        chequearrayview:function()
       {
@@ -512,9 +516,15 @@ obj1.parentemail=this.parentemail;
 
  email:function()
  {
-  alert();
+if(install2.length>0)
+{
+this.stud=install2[0].studname;
+}
+else
+{
+
   this.stud=this.receiptarr[0].studname;
-  alert(this.stud);
+  }
   this.$.emaildialog.open();
 
 
@@ -530,7 +540,7 @@ obj1.parentemail=this.parentemail;
 
       FnmailsendResponse:function(e){
         alert(e.detail.response);
-
+          //this.ready();
         },
 
         print:function(){
