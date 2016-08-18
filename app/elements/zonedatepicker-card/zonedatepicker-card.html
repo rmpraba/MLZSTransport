@@ -10,7 +10,7 @@
 
 <dom-module id="zonedatepicker-card">
   <template>
-    <style is="custom-style" include="paper-date-picker-dialog-style">
+    <style is="custom-style" >
       .card {
         width: 100%;
         text-align: center;
@@ -24,7 +24,7 @@
     <div class="card">
       <paper-input class="btn" on-click="FnShowDialog" raised value="{{showdate}}"></paper-input>
       <paper-dialog id="dialog2" class="paper-date-picker-dialog">
-        <paper-date-picker id="picker" date="{{date}}"></paper-date-picker>
+        <zdkelt-calendar id="cal19"></zdkelt-calendar>
         <div class="buttons">
           <paper-button >Cancel</paper-button>
           <paper-button on-click="FnDismissDialog">OK</paper-button>
@@ -64,15 +64,17 @@ instaltype=installtype;
   FnDismissDialog:function(e)
   {
 
-      var pickdate=moment(this.$.picker.date).format('L');
-      var dd1=new Date();
-      var dd2=new Date(pickdate);
-      var days=parseInt((dd2 - dd1) / (1000 * 60 * 60 * 24));
+     // var pickdate=moment(this.$.picker.date).format('L');
+      //var dd1=new Date();
+      //var dd2=new Date(pickdate);
+     // var days=parseInt((dd2 - dd1) / (1000 * 60 * 60 * 24));
       //alert(days);
     if(instaltype=="installment2")
     {
       if (days >= 0) {
-        this.showdate = moment(this.$.picker.date).format('L');
+        //this.showdate = moment(this.$.picker.date).format('L');
+         var cal = document.querySelector("#cal19");
+      this.showdate=cal.value;
         localStorage.setItem("localsess_curr_date", this.showdate);
         var id = 'dialog2';
         var dialog = document.getElementById(id);
@@ -86,7 +88,9 @@ instaltype=installtype;
     }
     else
     {
-      this.showdate = moment(this.$.picker.date).format('L');
+      //this.showdate = moment(this.$.picker.date).format('L');
+       var cal = document.querySelector("#cal19");
+      this.showdate=cal.value;
       localStorage.setItem("localsess_curr_date", this.showdate);
       var id = 'dialog2';
       var dialog = document.getElementById(id);

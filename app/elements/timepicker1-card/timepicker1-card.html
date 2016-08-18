@@ -8,7 +8,7 @@
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <dom-module id="timepicker1-card">
   <template>
-    <style is="custom-style" include="paper-date-picker-dialog-style">
+    <style is="custom-style" >
       .card {
         width: 100%;
         text-align: center;
@@ -20,8 +20,8 @@
     </style>
     <div class="card">
       <paper-input class="btn" label="Drop Time" on-click="showDialog" raised value="{{droptime}}"></paper-input>
-      <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="dismissDialog">
-        <paper-time-picker id="picker" time="[[time]]"></paper-time-picker>
+      <paper-dialog id="dialog" modal on-iron-overlay-closed="dismissDialog">
+        <zdkelt-calendar id="cal16"></zdkelt-calendar>
         <div class="buttons">
           <paper-button dialog-dismiss>Cancel</paper-button>
           <paper-button dialog-confirm>OK</paper-button>
@@ -29,7 +29,7 @@
       </paper-dialog>
     </div>
   </template>
-  <script src="../../scripts/timepicker-card.js"></script>
+ 
 </dom-module>
 
 
@@ -61,7 +61,9 @@
   },
   dismissDialog:function(e){
     if (e.detail.confirmed) {
-      this.droptime = this.$.picker.time;
+      //this.droptime = this.$.picker.time;
+      var cal = document.querySelector("#cal16");
+      this.showdate=cal.value;
       localStorage.setItem("curr_sess_droptime",this.droptime);
       //document.querySelector('item-card').setTime();
       //document.querySelector('customerinfo-page').setTime();
