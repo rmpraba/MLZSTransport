@@ -47,13 +47,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-dropdown-menu>
           </div>
     <div class="fieldsmall" style="width: 1%;margin-left:0%;position: absolute; left: 60%;"><paper-item id="installsdate" hidden$="{{hidden1}}">{{paymode}}</paper-item></div>
-     <div class="fieldsmall" style="width: 1%;margin-left:0%;position: absolute; left: 90%;"><paper-item id="installsdate" hidden$="{{hidden1}}">{{paydate}}</paper-item></div>
+     <div class="fieldsmall" style="width: 1%;margin-left:0%;position: absolute; left: 90%;">
+     <paper-item id="installsdate" hidden$="{{hidden1}}">{{paydate}}</paper-item></div>
             <div>
  <receipt-datepicker  hidden$="{{hidden2}}"></receipt-datepicker></div>
-    
+    </div>
             <template is="dom-if" if="{{checkinstall(paidstatus)}}">
             </template>
-            </div>
+            
        <paper-dialog id="chequeinfo" modal>
 <h4>ADD CHEQUE DETAILS</h4>
  <div  class="layout"><paper-input required allowed-pattern="[0-9]" error-message="needs Cheque number!"  id="chequeno" label="Enter the Cheque No:" value="{{chequeno}}"> </paper-input></div>
@@ -115,6 +116,11 @@ var fine;
           this.hidden1=true;
           this.hidden2=false;
         }
+      },
+      FnRefresh:function()
+      {
+       pushitem=[];
+       chequeitem=[];
       },
       payinstall:function(e)
       {

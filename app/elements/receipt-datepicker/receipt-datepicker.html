@@ -13,22 +13,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="receipt-datepicker">
  <template>
+    <style is="custom-style" include="paper-date-picker-dialog-style">
     <style is="custom-style" >
       .card {
         width: 100%;
         text-align: center;
-        margin-left:0%;
       }
-      paper-input{
-        width: 65%;
-      }
-    </style>
-    <!--component which invokes the predefined date picker control-->
+      </style>
+
     <div class="card">
       <paper-input class="btn" label="From Date" on-click="FnShowDialog" raised value="{{showdate}}"></paper-input>
-        <span class="value"></span>
       <paper-dialog id="dialog"  modal on-iron-overlay-closed="FnDismissDialog">
-         <zdkelt-calendar id="cal"></zdkelt-calendar>
+        <paper-date-picker id="picker" date="{{date}}"></paper-date-picker>
+       <!-- <zdkelt-calendar id="cal13"></zdkelt-calendar>-->
         <div class="buttons">
           <paper-button dialog-dismiss>Cancel</paper-button>
           <paper-button dialog-confirm>OK</paper-button>
@@ -58,14 +55,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   {
     if (e.detail.confirmed)
      {
-      var cal = document.querySelector("#cal");
-      this.showdate=cal.value;
-       //document.querySelector(".value").innerHTML = cal.value;
-      //var pickdate=moment(this.$.picker.date).format('L');
-      //var dd1=new Date();
-      //var dd2=new Date(pickdate);
-      //var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
-          //this.showdate = moment(this.$.picker.date).format('L');
+      var pickdate=moment(this.$.picker.date).format('L');
+      var dd1=new Date();
+      var dd2=new Date(pickdate);
+      var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
+         this.showdate = moment(this.$.picker.date).format('L');
+          //var cal = document.querySelector("#cal13");
+      //this.showdate=cal.value;
           localStorage.setItem("localsess_receipt_date",this.showdate);
           
       }
