@@ -2,6 +2,8 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="transportfee-service">
   <template>
+<!--   This function is to fetch student details and their transport fee details to display in transportfee-card
+ -->
     <iron-ajax
         method="post"
         id="generatefeeajax"
@@ -13,7 +15,8 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- This function is to fetch student details ,transport fee, pick, drop point and store it in a global variable
+ -->
    <iron-ajax
         method="post"
         id="zonefeeajax"
@@ -25,7 +28,8 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- This function fetches the student name to see their transport details and their fee payment history those who mapped already
+ -->
    <iron-ajax
         method="post"
         id="getnameofstuajax"
@@ -37,6 +41,8 @@
         debounce-duration="300"
         >
   </iron-ajax>
+
+  <!-- This ajax to call the function to pay fee and to generate the fee receipt -->
   <iron-ajax
         method="post"
         id="payfeeajax"
@@ -48,6 +54,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- The below ajax is used to send and store the cheque details in the database -->
    <iron-ajax
         method="post"
         id="chequedetailsajax"
@@ -60,28 +67,7 @@
         >
   </iron-ajax>
 
-   <iron-ajax
-        method="post"
-        id="payfee2ajax"
-        url="{{payfee2url}}"
-         params="{{payfee2param}}"
-        handle-as="json"
-        content-type="application/json"
-        on-response="payfee2Response"
-        debounce-duration="300"
-        >
-  </iron-ajax>
-   <iron-ajax
-        method="post"
-        id="chequedetails2ajax"
-        url="{{chequedetails2url}}"
-         params="{{chequedetails2param}}"
-        handle-as="json"
-        content-type="application/json"
-        on-response="chequedetails2Response"
-        debounce-duration="300"
-        >
-  </iron-ajax>
+   <!-- This function is used to get the fee details of the student,those who want to apply for discount -->
     <iron-ajax
         method="post"
         id="getfeedataajax"
@@ -93,6 +79,8 @@
         debounce-duration="300"
         >
   </iron-ajax>
+
+  <!-- This ajax helps to get the fee details for the student with respect to theit zone -->
    <iron-ajax
         method="post"
         id="getfeezoneajax"
@@ -104,6 +92,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- This ajax helps to take the detail of the student to discount card -->
   <iron-ajax
         method="post"
         id="getfeenameajax"
@@ -115,6 +104,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- Here the details of the students those are applied for discout are taken to database -->
    <iron-ajax
         method="post"
         id="sendrequestajax"
@@ -126,6 +116,8 @@
         debounce-duration="300"
         >
   </iron-ajax>
+
+  <!-- This function gets the due date and percentage of fee payment for installment -->
   <iron-ajax
 
         id="getinstalltypeajax"
@@ -137,6 +129,7 @@
         >
   </iron-ajax>
 
+<!-- This function gets the due date and percentage of fee payment for installment -->
    <iron-ajax
 
         id="fetchinstalltypeajax"
@@ -148,6 +141,7 @@
         >
   </iron-ajax>
 
+<!-- This function gets the due date and percentage of fee payment for installment -->
   <iron-ajax
 
         id="zoneinstalltypeajax"
@@ -158,7 +152,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- this function gets the cheque details between two given dates and still in processing -->
     <iron-ajax
         method="post"
         id="checkchequedetailsajax"
@@ -170,6 +164,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+<!-- this function gets the cheque details using student name and still in processing -->
    <iron-ajax
         method="post"
         id="checkchequebynameajax"
@@ -181,6 +176,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- take the all bounced cheque details to a report -->
   <iron-ajax
         method="post"
         id="bouncechequedetailsajax"
@@ -192,6 +188,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- update the status of the cheque in cheque details table -->
   <iron-ajax
         method="post"
         id="updatechequedetailajax"
@@ -203,6 +200,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- insert bounced check details -->
   <iron-ajax
         method="post"
         id="insertbouncechequeajax"
@@ -214,6 +212,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- insert cheque bounce details with status -->
   <iron-ajax
         method="post"
         id="bouncechequedetailajax"
@@ -225,6 +224,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- update the cheque status in the table -->
    <iron-ajax
         method="post"
         id="updatestuchequeajax"
@@ -236,6 +236,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- pick or get the due date for the first installment -->
    <iron-ajax
         method="post"
         id="datepickinsta1ajax"
@@ -247,6 +248,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- pick or get the due date for the first installment to pay fee in cheque mode -->
    <iron-ajax
         method="post"
         id="datepickinsta1chequeajax"
@@ -258,6 +260,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- get the due date for the second installment -->
    <iron-ajax
         method="post"
         id="datepickinsta2ajax"
@@ -269,6 +272,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- get the due date for the second installment with cheque pay mode -->
    <iron-ajax
         method="post"
         id="datepickinsta2chequeajax"
@@ -280,6 +284,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- generate the receipt sequence -->
    <iron-ajax
         method="post"
         id="receiptseqajax"
@@ -291,7 +296,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- generate the fee report -->
  <iron-ajax
         method="post"
         id="feereportajax"
@@ -304,7 +309,7 @@
         >
   </iron-ajax>
 
-
+<!-- generate the report that has details of payment done by cheque -->
   <iron-ajax
         method="post"
         id="chequereportajax"
@@ -316,7 +321,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- update the receipt sequence no in the table -->
    <iron-ajax
         method="post"
         id="updatereceiptseqajax"
@@ -328,6 +333,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- get the receipt no from the table with corresponding details-->
 <iron-ajax
         method="post"
         id="receiptnoajax"
@@ -339,6 +345,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- generate the receipt for the student who paid the fee -->
     <iron-ajax
         method="post"
         id="getstureceiptajax"
@@ -350,6 +357,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- get report of student who have pending in their fee -->
   <iron-ajax
         method="post"
         id="pendingajax"
@@ -361,7 +369,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- get the complete receipt info to generate the receipt for the student who paid the fee -->
    <iron-ajax
         method="post"
         id="getreceiptinfoajax"
@@ -370,7 +378,8 @@
         handle-as="json"
         content-type="application/json"
         on-response="getreceiptinfoResponse"
-          </iron-ajax>
+          ></iron-ajax>
+          <!-- generate the detailed report of student those who eligible for discount by searching with their name -->
   <iron-ajax
         method="post"
         id="discountreportbynameajax"
@@ -382,6 +391,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- this will generate the fee paid report for the school -->
     <iron-ajax
       method="post"
       id="feereport2ajax"
@@ -394,7 +404,7 @@
     >
     </iron-ajax>
 
-
+<!-- this will generate the cheque report for the school -->
     <iron-ajax
       method="post"
       id="chequereport2ajax"
@@ -569,6 +579,7 @@ var installtype_pdc;
         chequereportarr1="";
 
       },
+      /*get the fee for the student with respect to zone and school*/
         generatefee:function(studid)
 
      {
@@ -580,6 +591,7 @@ var installtype_pdc;
         this.generatefeeparam=obj;
         this.$.generatefeeajax.generateRequest();
      },
+     /*get the fee for the student with respect to zone and school*/
         zonefee:function(studid)
      {
 
@@ -603,6 +615,7 @@ var installtype_pdc;
       document.querySelector('transportfee-card').feearr=feeresult;
       document.querySelector('transportfee-service').getinstalltype();
      },
+     /*get the name list of student to an autocomplete text box*/
      getnameofstu:function()
      {
 
@@ -620,6 +633,7 @@ var installtype_pdc;
 
       document.querySelector('transportfee-card').autocompletename(nameitem);
      },
+     //this function is to pay transport fee for the student
      payfee:function(payfees)
      {
       this.receiptsequrl=sessionStorage.getItem("addrinfo")+"/receiptsequence";
@@ -631,6 +645,7 @@ var installtype_pdc;
       //alert(JSON.stringify(rpayfee));
       paycount=payfees.length;
      },
+    /* after the payment of the fee this response will be invoked where we call a function to generate the receipt*/
      payfeeResponse:function(e)
      {
         var pay1success=e.detail.response.returnval;
@@ -646,6 +661,7 @@ var installtype_pdc;
 
         }
       },
+      /*here the receipt is generated for the student who paid the fee with receipt no*/
       generatereceipt:function()
       {
 
@@ -657,6 +673,7 @@ var installtype_pdc;
         this.updatereceiptparam =obj;
         this.$.updatereceiptseqajax.generateRequest();
       },
+      /*produce the receipt/acknowledgement details and store it in database*/
       receiptseqResponse:function(e)
       {
         var insdate;
@@ -718,6 +735,7 @@ var installtype_pdc;
 
         }
       },
+      /*update sequence number in the table and fetch the parent detail of the specific student*/
       updatereceiptseqResponse:function()
       {
         //alert('come');
@@ -732,6 +750,7 @@ var installtype_pdc;
            this.getreceiptinfoparam =obj;
         this.$.getreceiptinfoajax.generateRequest();
      },
+     /*returns the parents details of the specific student*/
      getreceiptinfoResponse:function(e){
         dadname=e.detail.response.returnval[0].parent_name;
         dademail=e.detail.response.returnval[0].email;
@@ -741,6 +760,7 @@ var installtype_pdc;
         document.querySelector('cqreceipt-card').parentemail=dademail;
 
       },
+      /*this function actually print the receipt or acknowledgement for the student*/
      getstureceiptResponse:function(e)
      {
       var title;
@@ -889,6 +909,7 @@ recobj1.title=title;
 }
         document.querySelector('transport-app').setPage("receipt","Fee Receipt");
      },
+     /*this function is used to store the cheque details in a table*/
      chequeinfo:function(stdid,name,chequenum,bankname,chequedate,installtype)
      {
       chenum=chequenum;
@@ -911,7 +932,7 @@ recobj1.title=title;
 
      },
 
-
+/*this fucntion is used to get the details of student to perform fee payment with respect to their id*/
      getfeedata:function(id)
      {
        this.getfeedataurl=sessionStorage.getItem("addrinfo")+"/getfeedata";
@@ -968,6 +989,7 @@ recobj1.title=title;
         document.querySelector('discountstudent-card').todate=todatz;
 
      },
+     /*this function is to save the detail of the student those who applied for the dicount for a student*/
      sendrequest:function(id,stuname,schooltypez,zonname,feesz,fromdatez,todatez,schooltypez,disamtz,reason){
         var toda=new Date();
         var fromdat=new Date(fromdatez);
@@ -1003,10 +1025,12 @@ recobj1.title=title;
             alert('Request failed');
         }
      },
+     /*get the installment fee and date*/
     getinstalltype:function(){
         this.getinstalltypeurl="../../configfile/installmenttype.json";
         this.$.getinstalltypeajax.generateRequest();
     },
+    /*get the installment fee and date*/
     zoneinstalltype:function(){
         this.zoneinstalltypeurl="../../configfile/installmenttype.json";
         this.$.zoneinstalltypeajax.generateRequest();
@@ -1261,6 +1285,7 @@ document.querySelector('transportfee-card').installmentarr=installarr;
 document.querySelector('zonetostudent-card').installmentarr=installarr;
 document.querySelector('zonetostudent-card').payoption(installarr);
      },
+     /*store the bounced cheque details to the table*/
      bouncechequedetails:function()
      {
       //alert('2');
@@ -1414,6 +1439,7 @@ checkchequebyname:function(stnamee)
         document.querySelector('chequedetail-card').Fnchequedetail(chequedetail);
 
      },
+     /*update the status of the cheque in cheque details table*/
      updatechequedetail:function(chqdetail)
      {
        for(var i=0;i<chqdetail.length;i++)
@@ -1432,6 +1458,7 @@ checkchequebyname:function(stnamee)
       }
      
      },
+     /*insert cheque bounce details with status*/
      bouncechequedetail:function(chqdetail)
      {
        for(var i=0;i<chqdetail.length;i++)
@@ -1451,6 +1478,7 @@ checkchequebyname:function(stnamee)
         }
  //alert(JSON.stringify(bouncechequearr));
      },
+     /*insert bounced check details*/
      bouncechequedetailResponse:function(e)
      {
      // alert('2come');
@@ -1506,6 +1534,7 @@ for(var l=0;l<bouncechequearr.length;l++)
      {
       
      },
+     /*store the cheque details of the student*/
      updatestudentcheque:function(chqdetail)
      {
 
@@ -1547,6 +1576,7 @@ for(var l=0;l<bouncechequearr.length;l++)
       //document.querySelector('chequedetail-card').refreshchequedetail();
 
      },
+     /*generate the fee paid report for the particular date*/
       feereport:function(dat)
       {
         var fdate;
@@ -1580,6 +1610,7 @@ fdate="0"+condate.getDate();
 
 
       },
+      /*generate the fee paid report with respect to from and to date*/
       feereport2:function(dat1,dat2)
       {
         var condate = new Date(dat1);
@@ -1967,7 +1998,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
 
 
 
-
+/*fetch the detail of the student who paid fee on a specific date and by cash for first installment*/
       datepickinsta1:function(e){
         this.datepickinsta1url=sessionStorage.getItem("addrinfo")+"/datepickinsta1";
         var obj={"dates":"","schol":""}
@@ -1988,6 +2019,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
         }
         //document.querySelector('feereports-card').feereportarr1=feeresultinsta1;
       },
+      /*fetch the detail of the student who paid fee on a specific date and by cash for second installment*/
       datepickinsta2:function(e){
         this.datepickinsta2url=sessionStorage.getItem("addrinfo")+"/datepickinsta2";
         var obj={"dates":"","schol":""}
@@ -2048,6 +2080,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
         document.querySelector('feereports-card').total_collection_cash=total_collection_cash;
         //}
       },
+      /*fetch the detail of the student who paid fee on a specific date and by cheque for first installment*/
       datepickinsta1cheque:function(e){
         this.datepickinsta1chequeurl=sessionStorage.getItem("addrinfo")+"/datepickinsta1cheque";
         var obj={"dates":"","schol":""}
@@ -2067,6 +2100,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
         }
         //document.querySelector('feereports-card').feereportarr1cheque=feeresultinsta1cheque;
       },
+      /*fetch the detail of the student who paid fee on a specific date and by cheque for second installment*/
       datepickinsta2cheque:function(e){
         this.datepickinsta2chequeurl=sessionStorage.getItem("addrinfo")+"/datepickinsta2cheque";
         var obj={"dates":"","schol":""}
@@ -2152,6 +2186,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
            document.querySelector('feereports-card').total_students_paid= total_students_paid;
         //}
       },
+      /*fetch the fee pending report for the school*/
       pending:function(){
         this.pendingurl=sessionStorage.getItem("addrinfo")+"/pending";
         var obj={"schol":""}
@@ -2167,6 +2202,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
         }
         document.querySelector('pending-card').pendingarr=pending;
       },
+      /*used to fetch the name of student for applying the discount*/
        discountbyname:function(){
        this.discountreportbynameurl=sessionStorage.getItem("addrinfo")+"/discountbyname";
        var obj={"schol":""}
@@ -2179,6 +2215,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
         var nameitem=e.detail.response.returnval;
         document.querySelector('discountstudent-card').autocompletename(nameitem);
       },
+      /*used to get the name list of student to generate fee receipt those who paid fee with the post dated cheque(PDC)*/
       getnameforpdc:function(){
           this.getnameforpdcurl=sessionStorage.getItem("addrinfo")+"/getnameforpdc";
        var obj={"schol":""}
@@ -2190,6 +2227,7 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
           var res=e.detail.response.returnval;
           document.querySelector('pdccheck-card').autocompletename(res);  
       },
+      /*get the details of the student for pdc receipt generation*/
       getstudentfeedetails:function(id){
         this.getstudentfeedetailsurl=sessionStorage.getItem("addrinfo")+"/getstudentfeedetails";
        var obj={"schol":"","stid":""}
@@ -2248,7 +2286,9 @@ document.querySelector('feereports2-card').totalcollection=parseInt(cashtotal1)+
               }
 
             }
-      },generatereceipt:function(studentid,acknowno,type){
+      },
+      /*this used to generate the receipt no with respect to the acknowledgement no*/
+      generatereceipt:function(studentid,acknowno,type){
           studentid_pdc=studentid;
           acknow_pdc=acknowno;
           installtype_pdc=type;

@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   user     : 'root',
   password : 'admin',
   database : 'transport'
-});
+}); 
 var bodyParser = require('body-parser');
  var app = express();
 
@@ -18,6 +18,7 @@ app.get('/', function (req, res) {
    res.sendFile("app/index.html" );
 })
 
+/*this function is to send the receipt in email to the parent of the specific parents*/
 app.post('/mailsend', urlencodedParser,function (req, res) {
 var receiptno=req.query.receiptno;
 var today=req.query.today;
@@ -72,6 +73,8 @@ server.send({
 res.status(200).json('mail sent');
 
 });
+
+/*get the school id and school name with respect to employee who is getting logged in */
 app.post('/checkschool-card',  urlencodedParser,function (req, res)
 {
   var id={"id":req.query.username};
@@ -147,7 +150,7 @@ app.post('/getroute' ,  urlencodedParser,function (req, res)
 });
   });
 
-
+//elect the zone name
 app.post('/getzonenamedetail' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -1213,7 +1216,7 @@ app.post('/transportrequiredstatus',  urlencodedParser,function (req, res)
 });
   });
 
-
+/*This function is to fetch student details and their transport fee details to display in transportfee-card*/
 app.post('/reportfee-card',  urlencodedParser,function (req, res)
 {
 
@@ -1242,6 +1245,7 @@ app.post('/reportfee-card',  urlencodedParser,function (req, res)
   });
 
 
+/*this function fetches the student details, transport fee history, transport details*/
 app.post('/zonefee-card',  urlencodedParser,function (req, res)
 {
 
@@ -1249,11 +1253,11 @@ app.post('/zonefee-card',  urlencodedParser,function (req, res)
   var stu_id={"id":req.query.studid};
    var class_id={"class_id":req.query.studid};
   var stu_name={"student_name":req.query.studid};
-  var schoolx={"school_id":req.query.schol};
+  /*var schoolx={"school_id":req.query.schol};
   console.log(stu_id);
   console.log(class_id);
   console.log(stu_name);
-  console.log(schoolx);
+  console.log(schoolx);*/
        connection.query("SELECT s.id,s.student_name,(select class from class_details where id=s.class_id and school_id='"+req.query.schol+"') as class_id,s.photo,s.dob,s.transport_required,z.install1_status,z.install2_status,z.install1_fine,z.install2_fine,z.zone_id,z.fees,z.discount_fee,(z.fees-z.discount_fee)as actualfee,z.installment_1,z.installment_2,(z.installment_1+z.installment_2) as total, (z.fees-z.discount_fee)-(z.installment_1+z.installment_2) as due,(z.fees-z.discount_fee)/2 as install,z.installment_1Date,z.installment_2Date,z.modeofpayment1,z.modeofpayment2,(select point_name from point where id=(select pickup_point from student_point where student_id=s.id and school_id='"+req.query.schol+"')) as pick,(select point_name from point where id=(select drop_point from student_point where student_id=s.id and school_id='"+req.query.schol+"')) as drop1  from student_details s left join student_fee z on s.id=z.student_id where id in(select id from student_details where student_name='"+req.query.studid+"'and school_id='"+req.query.schol+"') and s.school_id='"+req.query.schol+"' and z.school_id='"+req.query.schol+"'",
         function(err, rows)
         {
@@ -1273,6 +1277,8 @@ app.post('/zonefee-card',  urlencodedParser,function (req, res)
 });
   });
 
+
+/*this fetches the name of student, those who required transport and already mapped to the zone*/
 app.post('/getnameofstu-card',  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -2086,7 +2092,7 @@ app.post('/updatezone' ,  urlencodedParser,function (req, res)
 
 
 
-
+/*this function gets the cheque details between two given dates*/
 app.post('/checkchequedetails',  urlencodedParser,function (req, res)
 {
   console.log('come');
@@ -2113,6 +2119,8 @@ console.log(todate);
   }
 });
   });
+
+/*<!-- this function gets the cheque details using student name and still in processing -->*/
 app.post('/checkchequebyname',  urlencodedParser,function (req, res)
 {
   console.log('come');
@@ -2137,6 +2145,7 @@ console.log(stuname);
   }
 });
   });
+/*it will take the all bounced cheque details*/
 app.post('/bouncechequedetails',  urlencodedParser,function (req, res)
 {
   var schoolx={"school_id":req.query.schol};
@@ -2157,6 +2166,7 @@ app.post('/bouncechequedetails',  urlencodedParser,function (req, res)
   }
 });
   });
+/*update the status of the cheque in cheque details table*/
 app.post('/updatechequedetail',  urlencodedParser,function (req, res)
 {
   var cstatus={"cheque_status":req.query.chequestatus};
@@ -2200,6 +2210,7 @@ app.post('/bouncechequedetail',  urlencodedParser,function (req, res)
 
 });
 });
+/*insert bounced check details*/
 app.post('/insertbouncecheque',  urlencodedParser,function (req, res)
 {
   //console.log('come');
