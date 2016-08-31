@@ -559,7 +559,7 @@ this.hidetransport=true;
           for(var i=0;i<item.length;i++)
           {
             var subval=((item[i].student_name).trim()).substring(0,backsubval.length);
-            if((subval).toUpperCase()==(backsubval).toUpperCase())
+            if((item[i].student_name).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
             {
               var obj={"itemdes":""};
               obj.itemdes=item[i].student_name;
@@ -578,9 +578,10 @@ this.hidetransport=true;
         this.itemval = this.value +String.fromCharCode((e.keyCode));
         if(this.itemval.length>0)
         {
-          for(var i=0;i<item.length;i++){
+          for(var i=0;i<item.length;i++)
+          {
             var subval=((item[i].student_name).trim()).substring(0,this.itemval.length);
-            if((subval).toUpperCase()==(this.itemval).toUpperCase())
+            if((item[i].student_name).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
             {
               var obj={"itemdes":""};
               obj.itemdes=item[i].student_name;
