@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="zonechange-service">
   <template>
+  <!-- this ajax fetch the name of the student who required transport -->
    <iron-ajax
             method="post"
             id="getzonechangenameajax"
@@ -24,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+<!-- get the details of the student to be used for zone change function -->
          <iron-ajax
             method="post"
             id="getzonechangestudetailajax"
@@ -35,6 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- this call the server function that fetches the student fee history and details -->
         <iron-ajax
             method="post"
             id="fetchstuzonedetailajax"
@@ -46,6 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- call the function to fetch the parent details of the student -->
          <iron-ajax
           method="post"
           id="zonechangeparentdetailajax"
@@ -57,6 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           debounce-duration="300"
         >
         </iron-ajax>
+        <!-- calls the function that takes up the student class details by using the student id -->
          <iron-ajax
             method="post"
             id="zonechangeclassajax"
@@ -68,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- gets the zone list of the given school -->
          <iron-ajax
             method="post"
             id="getchangezoneajax"
@@ -79,6 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- fetches the fees for the repective school -->
          <iron-ajax
             method="post"
             id="getzonechangefeeajax"
@@ -90,6 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- gets the start and end date of the terms in the school with difference with school type -->
          <iron-ajax
             method="post"
             id="getzonechangetermdateajax"
@@ -101,6 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- get the discount percentage for the oneway fee structure for full installment term-->
          <iron-ajax
             id="onewayajax"
             url="{{onewayurl}}"
@@ -110,6 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- get the discount percentage for the oneway fee structure with respect to from and to date -->
         <iron-ajax
             id="onecusajax"
             url="{{onecusurl}}"
@@ -119,6 +129,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax> 
+        <!-- the details of the students regarding zone, fee, school type and from and to dates are updated to the table -->
          <iron-ajax
             method="post"
             id="setzonechangeajax"
@@ -130,6 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- If the zone of the student has been changed, then the old datas are stored in a new table that is maintained as a record and where the new datas can be replaced in the previous table -->
          <iron-ajax
             method="post"
             id="previouszonedetailajax"
@@ -141,6 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- this is used to store the zone name from table -->
          <iron-ajax
             method="post"
             id="getzonenamedetailajax"
@@ -152,6 +165,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             debounce-duration="300"
             >
         </iron-ajax>
+        <!-- delete the point detail of the student in a table for the specific student -->
          <iron-ajax
             method="post"
             id="deletepointajax"
@@ -188,6 +202,7 @@ var prevzonefee;
 var zid;
     Polymer({
       is:'zonechange-service',
+      /*this function fetches the name list student and sent it to the autocomplete text field in zonechange-card*/
         getzonechangename:function()
       {
         this.getzonechangenameurl=sessionStorage.getItem("addrinfo")+"/getzonechangename";
@@ -305,6 +320,7 @@ document.querySelector('zonechange-card').prevremainfee=remainfee;
         document.querySelector('zonechange-card').stnd=stnd;
         document.querySelector('zonechange-card').secn=secn;
       },
+      /*this gets the list of zones available for the school*/
        getchangezone:function()
       {
         this.getchangezoneurl=sessionStorage.getItem("addrinfo")+"/getchangezone";
@@ -318,6 +334,7 @@ document.querySelector('zonechange-card').prevremainfee=remainfee;
             var zoneitem=e1.detail.response.returnval;
             document.querySelector('zonechange-card').itemarr=zoneitem;
       },
+      /*this fetches the fee for the specific zone with repective to the school*/
        getzonechangefee:function(zone)
       {
         //alert('s');
@@ -344,6 +361,7 @@ document.querySelector('zonechange-card').prevremainfee=remainfee;
           //document.querySelector('zonechange-card').fee=totalfee;
         }
       },
+      /*gets the start and end date of the terms in the school with difference with school type*/
        getzonechangetermdate:function(grade)
        {
          this.getzonechangetermdateurl=sessionStorage.getItem("addrinfo")+"/getzonechangetermdate";
@@ -442,6 +460,7 @@ document.querySelector('zonechange-card').prevremainfee=remainfee;
           val1=val-remainfee;
         document.querySelector('zonechange-card').fee=val1;
       },
+      /*the details of the students regarding zone, fee, school type and from and to dates are updated to the table*/
  setzonechange:function(studid,zone,fee,fromdatez,todatez,modez,namex,todayx,statusx,stuname)
       {
         //zstuname=stuname;

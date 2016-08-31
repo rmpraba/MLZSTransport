@@ -13,6 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="excelreport-service">
   <template>
+  <!-- the below ajax used to fetch the details of student who paid fee for first installment as cash -->
     <iron-ajax
         method="post"
         id="valuesinsta1cashajax"
@@ -24,7 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
-
+<!-- the below ajax used to fetch the details of student who paid fee for first installment as cash who change the zone -->
    <iron-ajax
         method="post"
         id="zonechangeinsta1cashajax"
@@ -36,6 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  
  <iron-ajax
         method="post"
         id="zonechangeinsta2cashajax"
@@ -47,6 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- the below ajax used to fetch the details of student who paid fee for second installment as cash -->
     <iron-ajax
         method="post"
         id="valuesinsta2cashajax"
@@ -58,6 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- the below ajax used to fetch the details of student who paid fee for first installment as cheque -->
     <iron-ajax
         method="post"
         id="valuesinsta1chequeajax"
@@ -69,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- the below ajax used to fetch the details of student who paid fee for second installment as cheque -->
     <iron-ajax
         method="post"
         id="valuesinsta2chequeajax"
@@ -88,7 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     var result1,result2;
     Polymer({
       is: 'excelreport-service',
-
+/*takes the report of student who paid fee based on modes and installments*/
       values:function(date,fromdate, installment, modeofpayment)
       {
         instal=installment;

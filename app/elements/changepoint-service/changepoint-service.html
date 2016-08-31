@@ -5,6 +5,7 @@
   <template>
   <!--pass the user name and password for signin-->
   <!--fetch the route to map the point to the student-->
+  <!-- this function gets the class categories or school type that are stored in a table -->
   <iron-ajax
     auto
     method="post"
@@ -17,6 +18,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- this takes the name list of people who required transport facility and here it is used to map the point the student -->
   <iron-ajax
     auto
     method="post"
@@ -29,6 +31,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- fetch the student details from the table by matching transport required as yes and class id -->
   <iron-ajax
     auto
     method="post"
@@ -41,6 +44,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- fetch the details of student based on school id and id and transport required as yes -->
   <iron-ajax
     method="post"
     id="namepickajax"
@@ -63,6 +67,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- select the list of routes for the specific school -->
   <iron-ajax
         method="post"
         id="routepoint"
@@ -74,6 +79,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- the point id and name are fetched by filtering with the zone and comparing the distance of the point with zone distance -->
   <iron-ajax
         method="post"
         id="routedroppoint"
@@ -85,6 +91,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- the value or record or details of the student and with specific point and route are inserted in the table by this function -->
    <iron-ajax
         method="post"
         id="studentpointajax"
@@ -207,6 +214,7 @@
         var student=e.detail.response.returnval;
         document.querySelector('changepoint-card').studentarr=student;
       },
+      /*the value or record or details of the student and with specific point and route are inserted in the table by this function*/
       submit:function(itemarr){
           len=itemarr.length;
           for(var i=0;i<itemarr.length;i++){

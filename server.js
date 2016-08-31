@@ -150,7 +150,7 @@ app.post('/getroute' ,  urlencodedParser,function (req, res)
 });
   });
 
-//elect the zone name
+//Select the zone name
 app.post('/getzonenamedetail' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -303,7 +303,7 @@ app.post('/getzone' ,  urlencodedParser,function (req, res)
     }
 });
   });
-
+/*fetch the available zone list for the specific school*/
 app.post('/getchangezone' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -327,7 +327,7 @@ app.post('/getchangezone' ,  urlencodedParser,function (req, res)
     }
 });
   });
-
+/*this takes the fee of the zone which is determined with the distance from the school*/
 app.post('/getfee' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -352,7 +352,7 @@ app.post('/getfee' ,  urlencodedParser,function (req, res)
     }
 });
   });
-
+/*this takes the fee of the zone which is determined with the distance from the school*/
 app.post('/getzonechangefee' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -378,6 +378,7 @@ app.post('/getzonechangefee' ,  urlencodedParser,function (req, res)
 });
   });
 
+/*gets the start and end date of the terms in the school with difference with school type*/
 app.post('/gettermdate' ,  urlencodedParser,function (req, res)
 {
   var schoolx={"school_id":req.query.schol};
@@ -403,6 +404,9 @@ app.post('/gettermdate' ,  urlencodedParser,function (req, res)
     }
 });
   });
+
+
+/*gets the start and end date of the terms in the school with difference with school type*/
 app.post('/getzonechangetermdate' ,  urlencodedParser,function (req, res)
 {
   var schoolx={"school_id":req.query.schol};
@@ -449,6 +453,8 @@ app.post('/setzone' ,  urlencodedParser,function (req, res)
 
 });
   });
+
+/*If the zone of the student has been changed, then the old datas are stored in a new table that is maintained as a record and where the new datas can be replaced in the previous table*/
 app.post('/previouszonedetails' ,  urlencodedParser,function (req, res)
 {
   var queryy="insert into student_zonechange values('"+req.query.school_id+"','"+req.query.student_id+"','"+req.query.zone_id+"','"+req.query.receipt_no1+"','"+req.query.receipt_no2+"','"+req.query.installment_1+"','"+req.query.installment_2+"','"+req.query.fees+"','"+req.query.discount_fee+"','"+req.query.installment_1Date+"','"+req.query.installment_2Date+"','"+req.query.modeofpayment1+"','"+req.query.modeofpayment2+"','"+req.query.from_date+"','"+req.query.to_date+"','"+req.query.mode+"','"+req.query.updated_by+"','"+req.query.updated_on+"','"+req.query.status+"','"+req.query.install1_status+"','"+req.query.install2_status+"','"+req.query.install1_fine+"','"+req.query.install2_fine+"')";
@@ -470,6 +476,9 @@ app.post('/previouszonedetails' ,  urlencodedParser,function (req, res)
 
 });
   });
+
+
+/*the details of the students regarding zone, fee, school type and from and to dates are updated to the table*/
 app.post('/setzonechange' ,  urlencodedParser,function (req, res)
 {
    var z=req.query.zone;
@@ -574,7 +583,8 @@ app.post('/getname' ,  urlencodedParser,function (req, res)
       console.log('No data Fetched'+err);
     }
 });
-  });
+  }); 
+/*this function returns the name list of students in the specific school who required transport facilities*/
 app.post('/getzonechangename' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -678,7 +688,7 @@ app.post('/getstudetail' ,  urlencodedParser,function (req, res)
 });
   });
 
-
+/*this take the details of the student by using its name or id*/
 app.post('/getzonechangestudetail' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -705,7 +715,7 @@ app.post('/getzonechangestudetail' ,  urlencodedParser,function (req, res)
 });
   });
 
-
+/*this fetch the fee details and fee history of a student in a school*/
 app.post('/fetchstuzonedetail' ,  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -783,7 +793,7 @@ app.post('/report-card',  urlencodedParser,function (req, res)
 
 
 
-
+/*this function gets the class categories or school type that are stored in a table*/
 app.post('/selectclass',  urlencodedParser,function (req, res)
 {
 var schoolx={"school_id":req.query.schol};
@@ -804,6 +814,7 @@ var schoolx={"school_id":req.query.schol};
 });
   });
 
+/*this takes the name list of people who required transport facility and here it is used to map the point the student, those who are not mapped to point already*/
 app.post('/selectnameforpoint',  urlencodedParser,function (req, res)
 { var schoolx={"school_id":req.query.schol};
 
@@ -824,6 +835,8 @@ app.post('/selectnameforpoint',  urlencodedParser,function (req, res)
 });
   });
 
+
+/*this takes the name list of people who required transport facility and here it is used to map the point the student, those who are already mapped to point already*/
 app.post('/selectnameforchpoint',  urlencodedParser,function (req, res)
 { var schoolx={"school_id":req.query.schol};
 
@@ -843,6 +856,8 @@ app.post('/selectnameforchpoint',  urlencodedParser,function (req, res)
   }
 });
   });
+
+/*fetch the student details from the table by matching transport required as yes and class id*/
 app.post('/classpick',  urlencodedParser,function (req, res)
 {
   var schoolx={"school_id":req.query.schol};
@@ -866,7 +881,7 @@ app.post('/classpick',  urlencodedParser,function (req, res)
 
 });
   });
-
+/*fetch the details of student based on school id and id and transport required as yes*/
 app.post('/namepick',  urlencodedParser,function (req, res)
 {
   var id={"id":req.query.id};
@@ -979,6 +994,9 @@ app.post('/pickpoints',  urlencodedParser,function (req, res)
   }
 });
 });
+
+
+/*the point id and name are fetched by filtering with the zone and comparing the distance of the point with zone distance*/
 app.post('/routedroppoint',  urlencodedParser,function (req, res)
 {
     var route_id=req.query.routedroppt;
@@ -1002,6 +1020,7 @@ app.post('/routedroppoint',  urlencodedParser,function (req, res)
   }
 });
 });
+/*select the list of routes for the specific school*/
 app.post('/routepoint',  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -1044,6 +1063,8 @@ app.post('/submiturl',  urlencodedParser,function (req, res)
 });
   });
 
+
+/*the value or record or details of the student and with specific point and route are inserted in the table by this function*/
 app.post('/submitupdateurl',  urlencodedParser,function (req, res)
 {
     var studentid={"student_id":req.query.studentid};
@@ -1933,7 +1954,7 @@ app.post('/getclass',  urlencodedParser,function (req, res)
 
 });
   });
-
+/*takes the calls details of the student by using the student id*/
 app.post('/getzonechangeclass',  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -2041,6 +2062,7 @@ app.post('/getstudzone',  urlencodedParser,function (req, res)
 });
   });
 
+/*delete the point detail of the student in a table for the specific student*/
 app.post('/deletepoint',  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -3066,6 +3088,7 @@ app.post('/getparentname',  urlencodedParser,function (req, res){
       }
     });
 });
+/*fetches the parent detail of the specific details that can be taken by using student id*/
 app.post('/getzonechangeparentname',  urlencodedParser,function (req, res){
 
   var stuid = req.query.studid;
@@ -3698,6 +3721,7 @@ app.post('/consolidatedallocatedreportread',  urlencodedParser,function (req, re
   });
 });
 
+/*the below ajax used to fetch the details of student who paid fee for first installment as cheque*/
 app.post('/valuesinsta1cheque',  urlencodedParser,function (req, res)
 {
   var date={"installment_1Date":req.query.dates};
@@ -3751,7 +3775,7 @@ app.post('/valuesinsta1cheque',  urlencodedParser,function (req, res)
 
 
 
-
+/*the below ajax used to fetch the details of student who paid fee for second installment as cheque*/
 app.post('/valuesinsta2cheque',  urlencodedParser,function (req, res)
 {
   var date={"installment_2Date":req.query.dates};
@@ -3808,7 +3832,7 @@ app.post('/valuesinsta2cheque',  urlencodedParser,function (req, res)
 
 
 
-
+/*the below ajax used to fetch the details of student who paid fee for second installment as cash*/
 app.post('/valuesinsta2cash',  urlencodedParser,function (req, res)
 {
 
@@ -3862,6 +3886,8 @@ app.post('/valuesinsta2cash',  urlencodedParser,function (req, res)
   });
 });  
 
+
+/*the below ajax used to fetch the details of student who paid fee for second installment as cash who change the zone*/
 app.post('/zonechangeinsta2cash',  urlencodedParser,function (req, res)
 {
 
@@ -3917,7 +3943,7 @@ app.post('/zonechangeinsta2cash',  urlencodedParser,function (req, res)
 
 
 
-
+/*the below ajax used to fetch the details of student who paid fee for first installment as cash*/
 app.post('/valuesinsta1cash',  urlencodedParser,function (req, res)
 {
   var date={"installment_1Date":req.query.dates};
@@ -3969,6 +3995,8 @@ app.post('/valuesinsta1cash',  urlencodedParser,function (req, res)
   });
 }); 
 
+
+/*the below ajax used to fetch the details of student who paid fee for first installment as cash who change the zone*/
 app.post('/zonechangeinsta1cash',  urlencodedParser,function (req, res)
 {
   var date={"installment_1Date":req.query.dates};
