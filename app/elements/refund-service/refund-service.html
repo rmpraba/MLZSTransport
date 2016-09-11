@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="refund-service">
   <template>
+  <!-- Used to fetch the list of student details who are applied and refund of the transport fee -->
    <iron-ajax
         method="post"
         id="refundajax"
@@ -23,6 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- this ajax is used to approval and update the details of the students who have applied for cancellation -->
   <iron-ajax
         method="post"
         id="approvalajax"
@@ -34,6 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- select the details of students, those who have applied for the cancellation of the fee -->
   <iron-ajax
         method="post"
         id="getverifyajax"
@@ -45,6 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- insert the refund cheque details that are going to issue from the school -->
   <iron-ajax
         method="post"
         id="refundchequeajax"
@@ -56,6 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- update the refund cheque details that are going to issue from the school -->
   <iron-ajax
         method="post"
         id="updaterefundchequeajax"
@@ -82,7 +87,7 @@ var refundid;
 var school=sessionStorage.getItem("sch");
     Polymer({
       is: 'refund-service',
-
+//Used to fetch the list of student details who are applied and refund of the transport fee
      refundreq:function()
      {
 
@@ -102,6 +107,7 @@ var school=sessionStorage.getItem("sch");
         // alert(JSON.stringify(e.detail.response.returnval));
          document.querySelector('refund-list').refundarr=refundresult;
       },
+      /*this ajax is used to approval and update the details of the students who have applied for cancellation*/
       Approvereq:function(stdid,status,flag)
       {
         //alert('aa');
@@ -126,6 +132,7 @@ var school=sessionStorage.getItem("sch");
             alert('Request Failed');
           }
       },
+      /*select the details of students, those who have applied for the cancellation of the fee*/
        getverify:function()
      {
 
@@ -144,6 +151,7 @@ var school=sessionStorage.getItem("sch");
         var refundresult=e.detail.response.returnval;
          document.querySelector('refundverify-card').refundarr=refundresult;
       },
+      /*insert the refund cheque details that are going to issue from the school*/
       refundcheque:function(stdid,name,chequeno,bankname,chequedate)
       {
         refundid=stdid;
@@ -159,6 +167,7 @@ var school=sessionStorage.getItem("sch");
         this.$.refundchequeajax.generateRequest();
 
       },
+      /*update the refund cheque details that are going to issue from the school*/
       refundchequeResponse:function(e)
       {
     this.updaterefundchequeurl=sessionStorage.getItem("addrinfo")+"/updaterefundcheque";

@@ -1043,6 +1043,7 @@ app.post('/routepoint',  urlencodedParser,function (req, res)
 });
 });
 
+/*insert the route, point, trip details of the students*/
 app.post('/submiturl',  urlencodedParser,function (req, res)
 {
     var mappointtostudent={"student_id":req.query.studentid,"school_type":req.query.class_id,"pickup_route_id":req.query.pickroute,"pickup_point":req.query.pickpoint,"drop_route_id":req.query.droproute, "drop_point":req.query.droppoint,"flag":req.query.flag,"school_id":req.query.schol};
@@ -1404,7 +1405,7 @@ app.post('/chequedetails',  urlencodedParser,function (req, res)
 
 
 
-
+/*Used to fetch the list of student details who are applied and refund of the transport fee*/
 
 
 app.post('/refund-card',  urlencodedParser,function (req, res)
@@ -1429,7 +1430,7 @@ var schoolx={"school_id":req.query.schol};
 });
   });
 
-
+/*this ajax is used to approval and update the details of the students who have applied for cancellation*/
 app.post('/approval-card',  urlencodedParser,function (req, res)
 {
 
@@ -1899,7 +1900,7 @@ app.post('/cancelledfee',  urlencodedParser,function (req, res)
   });
 
 
-
+/*select the details of students, those who have applied for the cancellation of the fee*/
 app.post('/getverify',  urlencodedParser,function (req, res)
 {
     var schoolx={"school_id":req.query.schol};
@@ -2966,6 +2967,8 @@ app.post('/getstureceipt',  urlencodedParser,function (req, res)
   });
 });
 
+
+/*insert the refund cheque details that are going to issue from the school*/
 app.post('/refundcheque',  urlencodedParser,function (req, res)
 {
   var dat=req.query.chequedate;
@@ -2983,7 +2986,7 @@ app.post('/refundcheque',  urlencodedParser,function (req, res)
   });
 });
 
-
+/*update the refund cheque details that are going to issue from the school*/
 app.post('/updaterefundcheque',  urlencodedParser,function (req, res)
 {
 var student_id = {"student_id":req.query.studid};
@@ -3019,6 +3022,8 @@ app.post('/updaterecpno',  urlencodedParser,function (req, res)
     }
   });
 });
+
+/*gets the all classes and sections available based on the school*/
 app.post('/selectclasses',  urlencodedParser,function (req, res){
   var schoolx={"school_id":req.query.schol};
   connection.query('select class, section, id from class_details where ?',[schoolx],
@@ -3197,7 +3202,7 @@ app.post('/getclasspass',  urlencodedParser,function (req, res)
     });
 });
 
-
+/*this function gets the role id , name and its password that are present in the school*/
 app.post('/getroles',  urlencodedParser,function (req, res)
 {
   var schoolx={"school_id":req.query.schol};

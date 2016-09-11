@@ -203,6 +203,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- this function gets the role id , name and its password that are present in the school -->
 <iron-ajax
         method="post"
         id="getrolesajax"
@@ -566,6 +567,7 @@
         document.querySelector('app-card').setPage("createzonecard","createzone");
         document.querySelector('zone-card').fee=fee;        
       },
+      /*this function gets the role id , name and its password that are present in the school*/
       getroles:function(e){
         this.getrolesurl=sessionStorage.getItem("addrinfo")+"/getroles";
         var obj={"schol":""}

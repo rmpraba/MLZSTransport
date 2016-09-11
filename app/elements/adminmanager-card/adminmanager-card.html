@@ -64,34 +64,41 @@ top:35%;
         {
 
       },
+      /*Navigate to the discount approval page*/
       discount:function()
       {
         document.querySelector('transport-app').setPage("approvediscount","Discount Approval");
          this.$.transportservice.getstudapproval();
         //this.$.service.discountbyname();
       },
+      /*this will take you to cancelling the discount approval page*/
       approval:function()
       {
         this.$.rservice.refundreq();
         document.querySelector('transport-app').setPage("approval"," Cancellation Approval");
       },
+      /*this will show you the reporting page of transport fee payment details of student*/
       feereports:function()
       {
         document.querySelector('transport-app').setPage("feereports2","Fee Reports");
       },
+      /*navigate to the change password page, where the user can change their password*/
       password:function(){
         this.$.login.getroles();
         document.querySelector('transport-app').setPage("password"," Change Password");
       },
+      /*here the overall consolidated report could be generated here*/
       consolidatereport:function(){
         document.querySelector('transport-app').setPage("consolidatedreport","Consolidated Report");
         document.querySelector('consolidated-report').consolidatedreportreadService();
       },
+      /*here the cancaellation of the transportation can be done and proceed for refunding of the fee*/
        cancel:function()
       {
         document.querySelector('transport-app').setPage("cancellation","Transport Cancellation");
         this.$.transportservice.name();
       },
+      /*the below function is used to find the no of students for specific route and bus wit repect to trip*/
       noofstud:function(){
         document.querySelector('transport-app').setPage("routestud","Student and Route Report");
         this.$.mapservice.routedetail();

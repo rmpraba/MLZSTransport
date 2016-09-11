@@ -5,6 +5,7 @@
   <template>
   <!--pass the user name and password for signin-->
   <!--fetch the route to map the point to the student-->
+  <!-- gets the all classes and sections available based on the school -->
   <iron-ajax
     auto
     method="post"
@@ -17,6 +18,7 @@
     debounce-duration="300"
   > 
   </iron-ajax>
+  <!-- this takes the name list of people who required transport facility and here it is used to map the point the student, those who are not mapped to point already -->
   <iron-ajax
     method="post"
     id="selectnameajax"
@@ -28,6 +30,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- fetch the student details from the table by matching transport required as yes and class id -->
   <iron-ajax
     method="post"
     id="classpickajax"
@@ -39,6 +42,7 @@
     debounce-duration="300"
   >
   </iron-ajax>
+  <!-- fetch the details of student based on school id and id and transport required as yes -->
   <iron-ajax
     method="post"
     id="namepickajax"
@@ -83,6 +87,7 @@
         debounce-duration="300"
         >
   </iron-ajax>
+  <!-- insert the route, point, trip details of the students -->
    <iron-ajax
         method="post"
         id="studentpointajax"
@@ -174,6 +179,7 @@
     var pointcount;
     Polymer({
       is: "mapstudenttopoint-service",
+      /*gets the all classes and sections available based on the school*/
       selectclass:function(){
         this.selectclassurl = sessionStorage.getItem("addrinfo")+"/selectclass";
         var obj={"schol":""}
@@ -188,6 +194,7 @@
         var classdetail=e.detail.response.returnval;
         document.querySelector('mapstudenttopoint-card').classarr=classdetail;
       },
+      /*this takes the name list of people who required transport facility and here it is used to map the point the student, those who are not mapped to point already*/
       selectname:function(){
         this.selectnameurl = sessionStorage.getItem("addrinfo")+"/selectnameforpoint";
         var obj={"schol":""}
@@ -202,6 +209,7 @@
         document.querySelector('mapstudenttopoint-card').autocompletename(nameitem);
         document.querySelector('mapstudenttopoint-card').spinner();
       },
+      /*fetch the details of student based on school id and id and transport required as yes*/
       namepick:function(cla)
       {
         this.namepickurl = sessionStorage.getItem("addrinfo")+"/namepick";
@@ -218,6 +226,7 @@
         var student=e.detail.response.returnval;
         document.querySelector('mapstudenttopoint-card').studentarr=student;
       },
+      /*fetch the student details from the table by matching transport required as yes and class id*/
       classpick:function(cla){
         this.classpickurl = sessionStorage.getItem("addrinfo")+"/classpick";
         var obj={"classes":"","schol":""}
@@ -230,6 +239,7 @@
         var student=e.detail.response.returnval;
         document.querySelector('mapstudenttopoint-card').studentarr=student;
       },
+      /*insert the route, point, trip details of the students*/
       submit:function(itemarr){
           len=itemarr.length;
           for(var i=0;i<itemarr.length;i++){
