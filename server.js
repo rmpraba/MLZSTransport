@@ -4513,6 +4513,45 @@ app.post('/deletecheque',  urlencodedParser,function (req, res)
 });
 });
 
+
+app.post('/registrationfee',  urlencodedParser,function (req, res)
+{
+        var response={
+        first_name:req.query.firstname,
+        last_name:req.query.lastname,
+        dob:req.query.dob,
+        class_for_admisson:req.query.class,
+        father_name:req.query.fathername,
+        mother_name:req.query.mothername,
+        mobile_no:req.query.mobileno,
+        email_id:req.query.email,
+        amount:req.query.amount,
+        location:req.query.location,
+        mode_of_payment:req.query.mode,
+        bank_name:req.query.bankname,
+        cheque_date:req.query.chequedate,
+        cheque_no:req.query.chequeno
+      };
+
+  connection.query('INSERT INTO registration SET ?',[response],
+        function(err, result)
+        {
+        if(!err)
+        {
+          if(result.affectedRows>0)
+          connection.query("SELECT register_no FROM registration WHERE first_name='"+req.query.firstname+"' and last_name='"+req.query.lastname+"' and father_name='"+req.query.fathername+"'",function(err, rows){
+          if(!err)
+          res.status(200).json({'returnval': rows[0].register_no});
+          });
+        }
+        else{
+          console.log(err);
+          res.status(200).json({'returnval': 'Failed to insert!'});
+        }
+  });
+
+});
+
 function setvalue(){
   console.log("calling setvalue.....");
 }

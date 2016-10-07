@@ -27,7 +27,7 @@
 
     <div class="frontpage">
     
-     
+      <paper-icon-button class="iconbutton" src="../../images/register.jpg" on-click="register"></paper-icon-button>
        <paper-icon-button class="iconbutton" src="../../images/cheque.png" on-click="chequedetails"></paper-icon-button>
         <paper-icon-button class="iconbutton" src="../../images/bouncecheque.png" on-click="bouncecheque"></paper-icon-button>
          <paper-icon-button class="iconbutton" src="../../images/excel-report.png" on-click="excelreport"></paper-icon-button>
@@ -67,6 +67,9 @@
       ready: function() 
       {
        
+      },
+      register:function(){
+        document.querySelector('transport-app').setPage("registration","Registration Page");
       },
       report:function()
       {

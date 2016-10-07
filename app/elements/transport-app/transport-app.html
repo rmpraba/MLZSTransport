@@ -50,6 +50,8 @@
 <link rel="import" href="../staffreport-card/staffreport-card.html">
 <link rel="import" href="../routestudent-card/routestudent-card.html">
 <link rel="import" href="../transportcancel-report/transportcancel-report.html">
+<link rel="import" href="../registration-card/registration-card.html">
+<link rel="import" href="../registration-receipt-card/registration-receipt-card.html">
 
 <link rel="stylesheet" type="text/css" href="../styles/styles.css">
   <dom-module id="transport-app">
@@ -230,6 +232,12 @@
           </section>
            <section data-category="tansportcanceldetail">
           <transportcancel-report></transportcancel-report>
+          </section>
+          <section data-category="registration">
+          <registration-card></registration-card>
+          </section>
+          <section data-category="registrationreceipt">
+          <registration-receipt-card></registration-receipt-card>
           </section>
           </iron-pages>
        </div>
@@ -603,6 +611,24 @@
 
   }
   if(name=="Finance Manager")  {
+
+    if(currpage="registrationreceipt"){
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("financemanager","Finance Manager");
+      document.querySelector('registration-card').FnClear();
+      document.querySelector('registration-dob-card').FnClear();
+      document.querySelector('registration-datepicker-card').FnClear();
+      document.querySelector('registration-card').ready();
+    }
+    if(currpage="registration"){
+      document.querySelector('app-card').setPage("transportapp");
+      document.querySelector('transport-app').setPage("financemanager","Finance Manager");
+      document.querySelector('registration-card').FnClear();
+      document.querySelector('registration-dob-card').FnClear();
+      document.querySelector('registration-datepicker-card').FnClear();
+      document.querySelector('registration-card').ready();
+    }
+
     if(currpage=="generatereport"){
       document.querySelector('app-card').setPage("transportapp");
       document.querySelector('transport-app').setPage("financemanager","Finance Manager");
