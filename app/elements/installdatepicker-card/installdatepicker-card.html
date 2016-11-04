@@ -12,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="installdatepicker-card">
   <template>
-    <style is="custom-style" >
+    <style is="custom-style" include="paper-date-picker-dialog-style">
       .card {
         width: 100%;
         text-align: center;
@@ -25,8 +25,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--component which invokes the predefined date picker control-->
     <div class="card">
       <paper-input class="btn" on-click="FnShowDialog" raised value="{{showdate}}"></paper-input>
-      <paper-dialog id="dialog1" >
-         <zdkelt-calendar id="cal9"></zdkelt-calendar>
+      <paper-dialog id="dialog1" class="paper-date-picker-dialog">
+        <paper-date-picker id="picker" date="{{date}}"></paper-date-picker>
         <div class="buttons">
           <paper-button >Cancel</paper-button>
           <paper-button on-click="FnDismissDialog">OK</paper-button>
@@ -60,15 +60,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   FnDismissDialog:function(e)
   {
     
-      //var pickdate=moment(this.$.picker.date).format('L');
-      //var dd1=new Date();
-      //var dd2=new Date(pickdate);
-      //var days=parseInt((dd2 - dd1) / (1000 * 60 * 60 * 24));
+      var pickdate=moment(this.$.picker.date).format('L');
+      var dd1=new Date();
+      var dd2=new Date(pickdate);
+      var days=parseInt((dd2 - dd1) / (1000 * 60 * 60 * 24));
       /*if(days>=0)
       {*/
-        //this.showdate = moment(this.$.picker.date).format('L');
-        var cal = document.querySelector("#cal9");
-      this.showdate=cal.value;
+        this.showdate = moment(this.$.picker.date).format('L');
         localStorage.setItem("localsess_curr_date",this.showdate);
         var id ='dialog1';
         var dialog = document.getElementById(id);

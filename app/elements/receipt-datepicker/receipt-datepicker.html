@@ -9,23 +9,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="..\..\bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/zdkelt-calendar/zdkelt-calendar.html">
 
 <dom-module id="receipt-datepicker">
  <template>
     <style is="custom-style" include="paper-date-picker-dialog-style">
-    <style is="custom-style" >
       .card {
         width: 100%;
         text-align: center;
+        margin-left:0%;
       }
-      </style>
-
+      paper-input{
+        width: 65%;
+      }
+    </style>
+    <!--component which invokes the predefined date picker control-->
     <div class="card">
       <paper-input class="btn" label="From Date" on-click="FnShowDialog" raised value="{{showdate}}"></paper-input>
-      <paper-dialog id="dialog"  modal on-iron-overlay-closed="FnDismissDialog">
+      <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="FnDismissDialog">
         <paper-date-picker id="picker" date="{{date}}"></paper-date-picker>
-       <!-- <zdkelt-calendar id="cal13"></zdkelt-calendar>-->
         <div class="buttons">
           <paper-button dialog-dismiss>Cancel</paper-button>
           <paper-button dialog-confirm>OK</paper-button>
@@ -37,8 +38,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!--Calling dialog control-->
 
   <!--JS file import-->
-  
-
   <script>
     Polymer({
   is: "receipt-datepicker",
@@ -59,9 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var dd1=new Date();
       var dd2=new Date(pickdate);
       var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
-         this.showdate = moment(this.$.picker.date).format('L');
-          //var cal = document.querySelector("#cal13");
-      //this.showdate=cal.value;
+          this.showdate = moment(this.$.picker.date).format('L');
           localStorage.setItem("localsess_receipt_date",this.showdate);
           
       }

@@ -10,7 +10,7 @@
 
 <dom-module id="tchequedatepicker-card">
   <template>
-    <style is="custom-style" >
+    <style is="custom-style" include="paper-date-picker-dialog-style">
       .card {
         width: 100%;
         text-align: center;
@@ -23,8 +23,8 @@
     <!--component which invokes the predefined date picker control-->
     <div class="card">
       <paper-input class="btn" on-click="FnShowDialog" id="tochedate" raised value="{{showdate}}"></paper-input>
-      <paper-dialog id="dialog" modal on-iron-overlay-closed="FnDismissDialog">
-        <zdkelt-calendar id="cal14"></zdkelt-calendar>
+      <paper-dialog id="dialog" class="paper-date-picker-dialog" modal on-iron-overlay-closed="FnDismissDialog">
+        <paper-date-picker id="picker" date="{{date}}"></paper-date-picker>
         <div class="buttons">
           <paper-button dialog-dismiss>Cancel</paper-button>
           <paper-button dialog-confirm>OK</paper-button>
@@ -54,13 +54,11 @@
   {
     if (e.detail.confirmed)
      {
-    //  var pickdate=moment(this.$.picker.date).format('L');
-      //var dd1=new Date();
-      //var dd2=new Date(pickdate);
-      //var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
-          //this.showdate = moment(this.$.picker.date).format('L');
-            var cal = document.querySelector("#cal14");
-      this.showdate=cal.value;
+      var pickdate=moment(this.$.picker.date).format('L');
+      var dd1=new Date();
+      var dd2=new Date(pickdate);
+      var days=parseInt((dd1 - dd2) / (1000 * 60 * 60 * 24));
+          this.showdate = moment(this.$.picker.date).format('L');
           localStorage.setItem("localsess_curr_date",this.showdate);
       
       document.querySelector('chequedetail-card').showtocheque(this.showdate);
